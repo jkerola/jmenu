@@ -40,7 +40,7 @@ def get_selenium_opts() -> Options:
 
 def print_usage():
     print(
-        f"""Juvenes menu fetcher {VERSION}
+        f"""Jamix menu fetcher {VERSION}
 Flags:
     --help          # Print this usage information
     --version       # Print version information
