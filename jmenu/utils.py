@@ -3,6 +3,9 @@ from sys import argv, exit
 from collections import namedtuple
 from datetime import datetime
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from selenium.webdriver.chrome.options import Options
 
@@ -37,7 +40,7 @@ def get_selenium_opts() -> Options:
 
 def print_usage():
     print(
-        f"""Juvenes menu fetcher {VERSION}
+        f"""Jamix menu fetcher {VERSION}
 Flags:
     --help          # Print this usage information
     --version       # Print version information
@@ -49,10 +52,17 @@ def get_soup(url: str) -> BeautifulSoup:
     try:
         driver = webdriver.Chrome(options=get_selenium_opts())
         driver.get(url)
+        cond = expected_conditions.presence_of_element_located(
+            (
+                By.CLASS_NAME,
+                "v-customlayout-header",
+            )
+        )
+        WebDriverWait(driver, 5).until(cond)
         soup = BeautifulSoup(driver.page_source, "html.parser")
         return soup
-    except Exception as e:
-        print(e)
+    except Exception:
+        pass
 
 
 def parse_soup(soup: BeautifulSoup) -> list[str]:
