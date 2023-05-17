@@ -1,0 +1,8 @@
+env
+.env
+.vscode
+__pycache__
+dist
+build
+jmenu.spec
+.ruff_cache
