@@ -16,10 +16,15 @@ Simply run the binary
 
 to print restaurant menus in the terminal.
 
-| Flag      | Description                 |
-| :-------- | :-------------------------- |
-| --help    | Display usage information   |
-| --version | Display version information |
+| Argument              | Example | Description                           |
+| :-------------------- | :------ | :------------------------------------ |
+| --allergens, <br/> -a | G VEG   | Highlights results with the allergen. |
+
+| Flag      | Description                                        |
+| :-------- | :------------------------------------------------- |
+| --hide    | Hide bad results instead of highlighting good ones |
+| --help    | Display usage information                          |
+| --version | Display version information                        |
 
 # Contributing
 
