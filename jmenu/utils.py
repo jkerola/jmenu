@@ -22,6 +22,11 @@ def get_args():
         help="Display version information",
         version=VERSION,
     )
+    parser.add_argument(
+        "--hide",
+        action="store_true",
+        help="Hide bad results instead of highlighting good ones",
+    )
     allergens = parser.add_argument_group("highlighting allergens")
     allergens.add_argument(
         "-a",
@@ -41,10 +46,10 @@ def main():
     args = get_args()
     start = time()
 
-    highlight = []
+    allergens = []
     if args.allergens:
-        highlight = [" " + x.upper() for x in args.allergens]
-    print_menu(highlight)
+        allergens = [" " + x.upper() for x in args.allergens]
+    print_menu(allergens, args.hide)
     print("Process took {:.2f} seconds.".format(time() - start))
 
 
@@ -82,7 +87,7 @@ def parse_soup(soup: BeautifulSoup) -> list[str]:
     return menu
 
 
-def print_menu(highlight: list[str]):
+def print_menu(allergens: list[str], hide: bool = False):
     date = datetime.now()
     print("-" * 79)
     print("Menu for", date.strftime("%d.%m"))
@@ -94,10 +99,28 @@ def print_menu(highlight: list[str]):
                 print(res.name, "\t --")
             else:
                 print(res.name)
-                for item in items:
-                    if highlight and all(marker in item for marker in highlight):
-                        print("\033[92m", "\t", item, "\033[0m")
-                    else:
+                if not allergens:
+                    for item in items:
                         print("\t", item)
+                else:
+                    if not hide:
+                        print_highlight(items, allergens)
+                    else:
+                        print_hide(items, allergens)
+
         except Exception:
             print("Couldn't fetch menu for", res.name)
+
+
+def print_hide(items: list[str], allergens: list[str]):
+    for item in items:
+        if any(marker in item for marker in allergens):
+            print("\t", item)
+
+
+def print_highlight(items: list[str], allergens: list[str]):
+    for item in items:
+        if any(marker in item for marker in allergens):
+            print("\033[92m", "\t", item, "\033[0m")
+        else:
+            print("\t", item)
