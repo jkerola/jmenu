@@ -1,5 +1,5 @@
 from version import VERSION
-from collections import namedtuple
+from restaurants import RESTAURANTS
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -9,19 +9,6 @@ from bs4 import BeautifulSoup
 from selenium.webdriver.chrome.options import Options
 import argparse
 from time import time
-
-
-Restaurant = namedtuple("Restaurant", ["name", "url"])
-
-
-urls = [
-    Restaurant("Foobar", "https://fi.jamix.cloud/apps/menu/?anro=93077&k=49&mt=84"),
-    Restaurant("Foodoo", "https://fi.jamix.cloud/apps/menu/?anro=93077&k=48&mt=89"),
-    Restaurant("Kastari", "https://fi.jamix.cloud/apps/menu/?anro=95663&k=5&mt=2"),
-    Restaurant("Kylmä", "https://fi.jamix.cloud/apps/menu/?anro=93077&k=48&mt=92"),
-    Restaurant("Mara", "https://fi.jamix.cloud/apps/menu/?anro=93077&k=49&mt=111"),
-    Restaurant("Napa", "https://fi.jamix.cloud/apps/menu/?anro=93077&k=48&mt=79"),
-]
 
 
 def get_args():
@@ -100,7 +87,7 @@ def print_menu(highlight: list[str]):
     print("-" * 79)
     print("Menu for", date.strftime("%d.%m"))
     print("-" * 79)
-    for res in urls:
+    for res in RESTAURANTS:
         try:
             items = parse_soup(get_soup(res.url))
             if len(items) == 0:
