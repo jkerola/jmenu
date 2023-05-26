@@ -11,6 +11,17 @@ import argparse
 from time import time
 
 
+def main():
+    args = get_args()
+    start = time()
+
+    allergens = []
+    if args.allergens:
+        allergens = [" " + x.upper() for x in args.allergens]
+    print_menu(allergens, args.hide)
+    print("Process took {:.2f} seconds.".format(time() - start))
+
+
 def get_args():
     parser = argparse.ArgumentParser(
         description="Display University of Oulu restaurant menus for the day."
@@ -38,19 +49,7 @@ def get_args():
         nargs="+",
         help='List of allergens, ex. "g veg"',
     )
-    parser.add_argument_group
     return parser.parse_args()
-
-
-def main():
-    args = get_args()
-    start = time()
-
-    allergens = []
-    if args.allergens:
-        allergens = [" " + x.upper() for x in args.allergens]
-    print_menu(allergens, args.hide)
-    print("Process took {:.2f} seconds.".format(time() - start))
 
 
 def get_selenium_opts() -> Options:
@@ -88,10 +87,7 @@ def parse_soup(soup: BeautifulSoup) -> list[str]:
 
 
 def print_menu(allergens: list[str], hide: bool = False):
-    date = datetime.now()
-    print("-" * 79)
-    print("Menu for", date.strftime("%d.%m"))
-    print("-" * 79)
+    print_header()
     for res in RESTAURANTS:
         try:
             items = parse_soup(get_soup(res.url))
@@ -124,3 +120,10 @@ def print_highlight(items: list[str], allergens: list[str]):
             print("\033[92m", "\t", item, "\033[0m")
         else:
             print("\t", item)
+
+
+def print_header():
+    date = datetime.now()
+    print("-" * 79)
+    print("Menu for", date.strftime("%d.%m"))
+    print("-" * 79)
