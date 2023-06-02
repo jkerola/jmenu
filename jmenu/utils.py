@@ -1,5 +1,5 @@
 from version import VERSION
-from restaurants import RESTAURANTS
+from restaurants import RESTAURANTS, MARKINGS
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -11,14 +11,19 @@ import argparse
 from time import time
 
 
+class ArgsNamespace:
+    hide: bool
+    explain: bool
+    allergens: list[str]
+
+
 def main():
     args = get_args()
+    if args.explain:
+        print_explanations()
+        exit(0)
     start = time()
-
-    allergens = []
-    if args.allergens:
-        allergens = [" " + x.upper() for x in args.allergens]
-    print_menu(allergens, args.hide)
+    print_menu(args)
     print("Process took {:.2f} seconds.".format(time() - start))
 
 
@@ -34,10 +39,18 @@ def get_args():
         version=VERSION,
     )
     parser.add_argument(
+        "-e",
+        "--explain",
+        dest="explain",
+        action="store_true",
+        help="Display allergen and marking information",
+    )
+    parser.add_argument(
         "--hide",
         action="store_true",
         help="Hide bad results instead of highlighting good ones",
     )
+
     allergens = parser.add_argument_group("highlighting allergens")
     allergens.add_argument(
         "-a",
@@ -49,7 +62,7 @@ def get_args():
         nargs="+",
         help='List of allergens, ex. "g veg"',
     )
-    return parser.parse_args()
+    return parser.parse_args(namespace=ArgsNamespace())
 
 
 def get_selenium_opts() -> Options:
@@ -86,7 +99,11 @@ def parse_soup(soup: BeautifulSoup) -> list[str]:
     return menu
 
 
-def print_menu(allergens: list[str], hide: bool = False):
+def print_menu(args: ArgsNamespace):
+    allergens = []
+    if args.allergens:
+        allergens = [" " + x.upper() for x in args.allergens]
+
     print_header()
     for res in RESTAURANTS:
         try:
@@ -99,13 +116,18 @@ def print_menu(allergens: list[str], hide: bool = False):
                     for item in items:
                         print("\t", item)
                 else:
-                    if not hide:
+                    if not args.hide:
                         print_highlight(items, allergens)
                     else:
                         print_hide(items, allergens)
 
         except Exception:
             print("Couldn't fetch menu for", res.name)
+
+
+def print_explanations():
+    for mark in MARKINGS:
+        print(mark.letters, "\t", mark.explanation)
 
 
 def print_hide(items: list[str], allergens: list[str]):
