@@ -90,7 +90,13 @@ def print_menu(allergens: list[str], hide: bool = False):
     print_header()
     for res in RESTAURANTS:
         try:
-            items = parse_soup(get_soup(res.url))
+            items = parse_soup(get_soup(res.main))
+            if res.soup:
+                soups = parse_soup(get_soup(res.soup))
+                if len(soups) != 0:
+                    if "proteiinilisäke" in soups:
+                        soups.remove("proteiinilisäke")
+                    items += soups
             if len(items) == 0:
                 print(res.name, "\t --")
             else:
@@ -104,7 +110,8 @@ def print_menu(allergens: list[str], hide: bool = False):
                     else:
                         print_hide(items, allergens)
 
-        except Exception:
+        except Exception as e:
+            print(e)
             print("Couldn't fetch menu for", res.name)
 
 
