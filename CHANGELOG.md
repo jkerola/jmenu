@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/jkerola/jmenu/compare/v1.1.0...v1.2.0) (2023-08-18)
+
+
+### Features
+
+* add allergen info ([#6](https://github.com/jkerola/jmenu/issues/6)) ([1147748](https://github.com/jkerola/jmenu/commit/11477487ce45a74dfbc2bec0af0b0a3f5092a4e7))
+
 ## [1.1.0](https://github.com/jkerola/jmenu/compare/v1.0.1...v1.1.0) (2023-06-01)
 
 
