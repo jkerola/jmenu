@@ -1,24 +1,30 @@
 from version import VERSION
-from restaurants import RESTAURANTS
+from restaurants import RESTAURANTS, MARKINGS
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from selenium.webdriver.chrome.options import Options
 import argparse
 from time import time
+from webdriver_manager.chrome import ChromeDriverManager
+
+
+class ArgsNamespace:
+    explain: bool
+    allergens: list[str]
 
 
 def main():
     args = get_args()
+    if args.explain:
+        print_explanations()
+        exit(0)
     start = time()
-
-    allergens = []
-    if args.allergens:
-        allergens = [" " + x.upper() for x in args.allergens]
-    print_menu(allergens, args.hide)
+    print_menu(args)
     print("Process took {:.2f} seconds.".format(time() - start))
 
 
@@ -34,10 +40,13 @@ def get_args():
         version=VERSION,
     )
     parser.add_argument(
-        "--hide",
+        "-e",
+        "--explain",
+        dest="explain",
         action="store_true",
-        help="Hide bad results instead of highlighting good ones",
+        help="Display allergen and marking information",
     )
+
     allergens = parser.add_argument_group("highlighting allergens")
     allergens.add_argument(
         "-a",
@@ -49,7 +58,7 @@ def get_args():
         nargs="+",
         help='List of allergens, ex. "g veg"',
     )
-    return parser.parse_args()
+    return parser.parse_args(namespace=ArgsNamespace())
 
 
 def get_selenium_opts() -> Options:
@@ -60,7 +69,10 @@ def get_selenium_opts() -> Options:
 
 def get_soup(url: str) -> BeautifulSoup:
     try:
-        driver = webdriver.Chrome(options=get_selenium_opts())
+        driver = webdriver.Chrome(
+            service=ChromeService(ChromeDriverManager().install()),
+            options=get_selenium_opts(),
+        )
         driver.get(url)
         cond = expected_conditions.presence_of_element_located(
             (
@@ -80,13 +92,15 @@ def parse_soup(soup: BeautifulSoup) -> list[str]:
     if len(results) == 0:
         return []
     results = soup.find_all("span", attrs={"class": "menu-item"})
-    menu = []
-    for result in results:
-        menu.append(result.text)
+    menu = [result.text for result in results]
     return menu
 
 
-def print_menu(allergens: list[str], hide: bool = False):
+def print_menu(args: ArgsNamespace):
+    allergens = []
+    if args.allergens:
+        allergens = [" " + x.upper() for x in args.allergens]
+
     print_header()
     for res in RESTAURANTS:
         try:
@@ -99,19 +113,15 @@ def print_menu(allergens: list[str], hide: bool = False):
                     for item in items:
                         print("\t", item)
                 else:
-                    if not hide:
-                        print_highlight(items, allergens)
-                    else:
-                        print_hide(items, allergens)
+                    print_highlight(items, allergens)
 
         except Exception:
             print("Couldn't fetch menu for", res.name)
 
 
-def print_hide(items: list[str], allergens: list[str]):
-    for item in items:
-        if any(marker in item for marker in allergens):
-            print("\t", item)
+def print_explanations():
+    for mark in MARKINGS:
+        print(mark.letters, "\t", mark.explanation)
 
 
 def print_highlight(items: list[str], allergens: list[str]):

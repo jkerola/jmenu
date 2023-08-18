@@ -9,14 +9,14 @@ repos:
         exclude: "pre-commit-config.yaml"
   # Prettier for any YAML, README
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: "v3.0.0-alpha.9-for-vscode" # Use the sha or tag you want to point at
+    rev: "v3.0.2" # Use the sha or tag you want to point at
     hooks:
       - id: prettier
         additional_dependencies:
           - prettier@2.7.1
   # Black formatter
   - repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 23.7.0
     hooks:
       - id: black
         # It is recommended to specify the latest version of Python
@@ -27,7 +27,7 @@ repos:
     # Ruff linter
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     # Ruff version.
-    rev: "v0.0.265"
+    rev: "v0.0.285"
     hooks:
       - id: ruff
   - repo: https://github.com/pre-commit/pre-commit-hooks
