@@ -4,15 +4,16 @@ from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from selenium.webdriver.chrome.options import Options
 import argparse
 from time import time
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 class ArgsNamespace:
-    hide: bool
     explain: bool
     allergens: list[str]
 
@@ -45,11 +46,6 @@ def get_args():
         action="store_true",
         help="Display allergen and marking information",
     )
-    parser.add_argument(
-        "--hide",
-        action="store_true",
-        help="Hide bad results instead of highlighting good ones",
-    )
 
     allergens = parser.add_argument_group("highlighting allergens")
     allergens.add_argument(
@@ -73,7 +69,10 @@ def get_selenium_opts() -> Options:
 
 def get_soup(url: str) -> BeautifulSoup:
     try:
-        driver = webdriver.Chrome(options=get_selenium_opts())
+        driver = webdriver.Chrome(
+            service=ChromeService(ChromeDriverManager().install()),
+            options=get_selenium_opts(),
+        )
         driver.get(url)
         cond = expected_conditions.presence_of_element_located(
             (
@@ -93,9 +92,7 @@ def parse_soup(soup: BeautifulSoup) -> list[str]:
     if len(results) == 0:
         return []
     results = soup.find_all("span", attrs={"class": "menu-item"})
-    menu = []
-    for result in results:
-        menu.append(result.text)
+    menu = [result.text for result in results]
     return menu
 
 
@@ -116,10 +113,7 @@ def print_menu(args: ArgsNamespace):
                     for item in items:
                         print("\t", item)
                 else:
-                    if not args.hide:
-                        print_highlight(items, allergens)
-                    else:
-                        print_hide(items, allergens)
+                    print_highlight(items, allergens)
 
         except Exception:
             print("Couldn't fetch menu for", res.name)
@@ -128,12 +122,6 @@ def print_menu(args: ArgsNamespace):
 def print_explanations():
     for mark in MARKINGS:
         print(mark.letters, "\t", mark.explanation)
-
-
-def print_hide(items: list[str], allergens: list[str]):
-    for item in items:
-        if any(marker in item for marker in allergens):
-            print("\t", item)
 
 
 def print_highlight(items: list[str], allergens: list[str]):
