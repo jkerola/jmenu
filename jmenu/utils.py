@@ -92,7 +92,7 @@ def get_menus(data: dict, rest: Restaurant) -> list[dict]:
 def print_menu(args: ArgsNamespace):
     allergens = []
     if args.allergens:
-        allergens = [" " + x.upper() for x in args.allergens]
+        allergens = [x.upper() for x in args.allergens]
 
     print_header()
     for res in RESTAURANTS:
@@ -120,8 +120,13 @@ def print_explanations():
 
 
 def print_highlight(items: list[str], allergens: list[str]):
+    print(
+        allergens,
+    )
     for item in items:
-        if any(marker in item["diets"] for marker in allergens):
+        diets = item["diets"].split(",")
+        diets = [marker.strip() for marker in diets]
+        if all(marker in diets for marker in allergens):
             print("\033[92m", "\t", item["name"], item["diets"], "\033[0m")
         else:
             print("\t", item["name"], item["diets"])
