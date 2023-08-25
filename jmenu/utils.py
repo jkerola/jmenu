@@ -55,9 +55,9 @@ def get_args():
 
 
 def get_restaurant_menu_items(rest: Restaurant) -> list[dict]:
-    today = datetime.today().date().strftime("%Y%m%d")
+    today = datetime.now().strftime("%Y%m%d")
     response = requests.get(
-        f"{API_URL}/{rest.client_id}/{rest.kitchen_id}?lang=fi&{today}"
+        f"{API_URL}/{rest.client_id}/{rest.kitchen_id}?lang=fi&date={today}"
     )
     data = response.json()
     menus = get_menus(data, rest)
