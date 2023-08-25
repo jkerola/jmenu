@@ -1,16 +1,9 @@
 from version import VERSION
-from restaurants import RESTAURANTS, MARKINGS
+from restaurants import RESTAURANTS, MARKINGS, API_URL, SKIPPED_ITEMS, Restaurant
 from datetime import datetime
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.common.by import By
-from bs4 import BeautifulSoup
-from selenium.webdriver.chrome.options import Options
+import requests
 import argparse
 from time import time
-from webdriver_manager.chrome import ChromeDriverManager
 
 
 class ArgsNamespace:
@@ -61,39 +54,39 @@ def get_args():
     return parser.parse_args(namespace=ArgsNamespace())
 
 
-def get_selenium_opts() -> Options:
-    opts = Options()
-    opts.add_argument("--headless")
-    return opts
-
-
-def get_soup(url: str) -> BeautifulSoup:
-    try:
-        driver = webdriver.Chrome(
-            service=ChromeService(ChromeDriverManager().install()),
-            options=get_selenium_opts(),
-        )
-        driver.get(url)
-        cond = expected_conditions.presence_of_element_located(
-            (
-                By.CLASS_NAME,
-                "v-customlayout-header",
-            )
-        )
-        WebDriverWait(driver, 5).until(cond)
-        soup = BeautifulSoup(driver.page_source, "html.parser")
-        return soup
-    except Exception:
-        pass
-
-
-def parse_soup(soup: BeautifulSoup) -> list[str]:
-    results = soup.find_all("div", attrs={"class": "menu-sub-view"})
-    if len(results) == 0:
+def get_restaurant_menu_items(rest: Restaurant) -> list[dict]:
+    today = datetime.today().date().strftime("%Y%m%d")
+    response = requests.get(
+        f"{API_URL}/{rest.client_id}/{rest.kitchen_id}?lang=fi&{today}"
+    )
+    data = response.json()
+    menus = get_menus(data, rest)
+    if len(menus) == 0:
         return []
-    results = soup.find_all("span", attrs={"class": "menu-item"})
-    menu = [result.text for result in results]
-    return menu
+    items = get_menu_items(menus, rest)
+    return items
+
+
+def get_menu_items(menus: dict, rest: Restaurant) -> list[dict]:
+    items = []
+    for menu in menus:
+        day = menu["days"][0]
+        mealopts = day["mealoptions"]
+        sorted(mealopts, key=lambda x: x["orderNumber"])
+        for opt in mealopts:
+            for item in opt["menuItems"]:
+                if item["name"] not in SKIPPED_ITEMS:
+                    items.append(item)
+    return items
+
+
+def get_menus(data: dict, rest: Restaurant) -> list[dict]:
+    menus = []
+    for kitchen in data:
+        for m_type in kitchen["menuTypes"]:
+            if m_type["menuTypeName"] in rest.relevant_menus:
+                menus.extend(m_type["menus"])
+    return menus
 
 
 def print_menu(args: ArgsNamespace):
@@ -104,18 +97,20 @@ def print_menu(args: ArgsNamespace):
     print_header()
     for res in RESTAURANTS:
         try:
-            items = parse_soup(get_soup(res.url))
+            items = get_restaurant_menu_items(res)
+            sorted(items, key=lambda x: x["orderNumber"])
             if len(items) == 0:
                 print(res.name, "\t --")
             else:
                 print(res.name)
                 if not allergens:
                     for item in items:
-                        print("\t", item)
+                        print("\t", item["name"], item["diets"])
                 else:
                     print_highlight(items, allergens)
 
-        except Exception:
+        except Exception as e:
+            print(e.with_traceback())
             print("Couldn't fetch menu for", res.name)
 
 
@@ -126,10 +121,10 @@ def print_explanations():
 
 def print_highlight(items: list[str], allergens: list[str]):
     for item in items:
-        if any(marker in item for marker in allergens):
-            print("\033[92m", "\t", item, "\033[0m")
+        if any(marker in item["diets"] for marker in allergens):
+            print("\033[92m", "\t", item["name"], item["diets"], "\033[0m")
         else:
-            print("\t", item)
+            print("\t", item["name"], item["diets"])
 
 
 def print_header():

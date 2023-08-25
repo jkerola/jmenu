@@ -1,14 +1,40 @@
 from collections import namedtuple
 
-Restaurant = namedtuple("Restaurant", ["name", "url"])
+Restaurant = namedtuple(
+    "Restaurant", ["name", "client_id", "kitchen_id", "menu_type", "relevant_menus"]
+)
 Marking = namedtuple("Marking", ["letters", "explanation"])
+
+API_URL = "https://fi.jamix.cloud/apps/menuservice/rest/haku/menu"
+
+SKIPPED_ITEMS = [
+    "proteiinilisäke",
+    "Täysjyväriisi",
+    "Lämmin kasvislisäke",
+    "Höyryperunat",
+    "Tumma pasta",
+    "Meillä tehty perunamuusi",
+]
+
 RESTAURANTS = [
-    Restaurant("Foobar", "https://fi.jamix.cloud/apps/menu/?anro=93077&k=49&mt=84"),
-    Restaurant("Foodoo", "https://fi.jamix.cloud/apps/menu/?anro=93077&k=48&mt=89"),
-    Restaurant("Kastari", "https://fi.jamix.cloud/apps/menu/?anro=95663&k=5&mt=2"),
-    Restaurant("Kylmä", "https://fi.jamix.cloud/apps/menu/?anro=93077&k=48&mt=92"),
-    Restaurant("Mara", "https://fi.jamix.cloud/apps/menu/?anro=93077&k=49&mt=111"),
-    Restaurant("Napa", "https://fi.jamix.cloud/apps/menu/?anro=93077&k=48&mt=79"),
+    Restaurant(
+        "Foobar",
+        93077,
+        49,
+        84,
+        ["Foobar Salad and soup", "Foobar Rohee"],
+    ),
+    Restaurant(
+        "Foodoo",
+        93077,
+        48,
+        89,
+        ["Foodoo Salad and soup", "Foodoo Reilu"],
+    ),
+    Restaurant("Kastari", 95663, 5, 2, ["Ruokalista"]),
+    Restaurant("Kylmä", 93077, 48, 92, []),
+    Restaurant("Mara", 93077, 49, 111, ["Salad and soup", "Ravintola Mara"]),
+    Restaurant("Napa", 93077, 48, 79, []),
 ]
 
 MARKINGS = [
