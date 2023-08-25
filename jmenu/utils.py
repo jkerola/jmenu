@@ -109,8 +109,7 @@ def print_menu(args: ArgsNamespace):
                 else:
                     print_highlight(items, allergens)
 
-        except Exception as e:
-            print(e.with_traceback())
+        except Exception:
             print("Couldn't fetch menu for", res.name)
 
 
@@ -120,9 +119,6 @@ def print_explanations():
 
 
 def print_highlight(items: list[str], allergens: list[str]):
-    print(
-        allergens,
-    )
     for item in items:
         diets = item["diets"].split(",")
         diets = [marker.strip() for marker in diets]
