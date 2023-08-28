@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/jkerola/jmenu/compare/v1.2.0...v1.3.0) (2023-08-28)
+
+
+### Features
+
+* switch to jamix api ([#8](https://github.com/jkerola/jmenu/issues/8)) ([e5cdc50](https://github.com/jkerola/jmenu/commit/e5cdc508e693b8149c6dce642944bc1cf1a385a2))
+
 ## [1.2.0](https://github.com/jkerola/jmenu/compare/v1.1.0...v1.2.0) (2023-08-18)
 
 
