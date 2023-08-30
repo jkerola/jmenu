@@ -17,24 +17,12 @@ SKIPPED_ITEMS = [
 ]
 
 RESTAURANTS = [
-    Restaurant(
-        "Foobar",
-        93077,
-        49,
-        84,
-        ["Foobar Salad and soup", "Foobar Rohee"],
-    ),
-    Restaurant(
-        "Foodoo",
-        93077,
-        48,
-        89,
-        ["Foodoo Salad and soup", "Foodoo Reilu"],
-    ),
+    Restaurant("Foobar", 93077, 49, 84, ["Foobar Salad and soup", "Foobar Rohee"]),
+    Restaurant("Foodoo", 93077, 48, 89, ["Foodoo Salad and soup", "Foodoo Reilu"]),
     Restaurant("Kastari", 95663, 5, 2, ["Ruokalista"]),
     Restaurant("Kylmä", 93077, 48, 92, []),
     Restaurant("Mara", 93077, 49, 111, ["Salad and soup", "Ravintola Mara"]),
-    Restaurant("Napa", 93077, 48, 79, []),
+    Restaurant("Napa", 93077, 48, 79, ["Napa Rohee"]),
 ]
 
 MARKINGS = [
