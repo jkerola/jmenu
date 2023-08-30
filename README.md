@@ -2,15 +2,18 @@
 
 ## About
 
-Python app to scrape University of Oulu restaurant menus from Jamix.
+Python app to display University of Oulu restaurant menus from Jamix API.
 
-Works by rendering the pages with selenium, then scraping the HTML with BeautifulSoup4
+Versions below 1.3 work by rendering the pages with selenium, then scraping the HTML with BeautifulSoup4.
+
+Versions 1.3 and above use the API at [https://fi.jamix.cloud/apps/menuservice/rest](https://fi.jamix.cloud/apps/menuservice/rest)
 
 # Usage
 
 Simply run the binary
 
 ```shell
+chmod +x jmenu
 ./jmenu
 ```
 
