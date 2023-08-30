@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.2](https://github.com/jkerola/jmenu/compare/v1.3.1...v1.3.2) (2023-08-30)
+
+
+### Bug Fixes
+
+* add missing napa menu headers ([#12](https://github.com/jkerola/jmenu/issues/12)) ([154d50b](https://github.com/jkerola/jmenu/commit/154d50b0ec00331ea2c90c392470b8d6b4f78d2c))
+
+
+### Documentation
+
+* update readme ([#13](https://github.com/jkerola/jmenu/issues/13)) ([0282c47](https://github.com/jkerola/jmenu/commit/0282c4782e15a7f4b22db8dcd527fd58c83e9ffd))
+
 ## [1.3.1](https://github.com/jkerola/jmenu/compare/v1.3.0...v1.3.1) (2023-08-28)
 
 
