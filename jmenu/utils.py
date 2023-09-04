@@ -101,7 +101,7 @@ def print_menu(args: ArgsNamespace):
         fetch_date += timedelta(days=1)
     allergens = []
     if args.allergens:
-        allergens = [x.upper() for x in args.allergens]
+        allergens = [x.lower() for x in args.allergens]
 
     print_header(fetch_date)
     for res in RESTAURANTS:
@@ -129,8 +129,7 @@ def print_explanations():
 
 def print_highlight(items: list[str], allergens: list[str]):
     for item in items:
-        diets = item["diets"].split(",")
-        diets = [marker.strip() for marker in diets]
+        diets = [x.strip().lower() for x in item["diets"].split(",")]
         if all(marker in diets for marker in allergens):
             print("\033[92m", "\t", item["name"], item["diets"], "\033[0m")
         else:
