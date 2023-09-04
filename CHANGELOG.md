@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/jkerola/jmenu/compare/v1.3.2...v1.4.0) (2023-09-04)
+
+
+### Features
+
+* enable kylymä, add --tomorrow option ([#15](https://github.com/jkerola/jmenu/issues/15)) ([1c74b91](https://github.com/jkerola/jmenu/commit/1c74b91ff3b0c91c04912f5570a781e5337da1a5))
+
 ## [1.3.2](https://github.com/jkerola/jmenu/compare/v1.3.1...v1.3.2) (2023-08-30)
 
 
