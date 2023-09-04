@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.1](https://github.com/jkerola/jmenu/compare/v1.4.0...v1.4.1) (2023-09-04)
+
+
+### Bug Fixes
+
+* fix allergen printing bug ([#19](https://github.com/jkerola/jmenu/issues/19)) ([7cf6c2e](https://github.com/jkerola/jmenu/commit/7cf6c2eb3506f6ebcc5dc226aa16627ae554ca3a))
+* unify print typing ([#17](https://github.com/jkerola/jmenu/issues/17)) ([fde5064](https://github.com/jkerola/jmenu/commit/fde50641b0469a4c253ae947ebef20f0e2b8eeb0))
+
 ## [1.4.0](https://github.com/jkerola/jmenu/compare/v1.3.2...v1.4.0) (2023-09-04)
 
 
