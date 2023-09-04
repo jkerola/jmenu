@@ -1,6 +1,6 @@
 from version import VERSION
 from restaurants import RESTAURANTS, MARKINGS, API_URL, SKIPPED_ITEMS, Restaurant
-from datetime import datetime
+from datetime import datetime, timedelta
 import requests
 import argparse
 from time import time
@@ -9,6 +9,7 @@ from time import time
 class ArgsNamespace:
     explain: bool
     allergens: list[str]
+    tomorrow: bool
 
 
 def main():
@@ -39,8 +40,14 @@ def get_args():
         action="store_true",
         help="Display allergen and marking information",
     )
-
-    allergens = parser.add_argument_group("highlighting allergens")
+    parser.add_argument(
+        "-t",
+        "--tomorrow",
+        dest="tomorrow",
+        action="store_true",
+        help="Display menus for tomorrow.",
+    )
+    allergens = parser.add_argument_group("allergens")
     allergens.add_argument(
         "-a",
         "--allergens",
@@ -54,10 +61,9 @@ def get_args():
     return parser.parse_args(namespace=ArgsNamespace())
 
 
-def get_restaurant_menu_items(rest: Restaurant) -> list[dict]:
-    today = datetime.now().strftime("%Y%m%d")
+def get_restaurant_menu_items(rest: Restaurant, fetch_date: datetime) -> list[dict]:
     response = requests.get(
-        f"{API_URL}/{rest.client_id}/{rest.kitchen_id}?lang=fi&date={today}"
+        f"{API_URL}/{rest.client_id}/{rest.kitchen_id}?lang=fi&date={fetch_date.strftime('%Y%m%d')}"
     )
     data = response.json()
     menus = get_menus(data, rest)
@@ -90,17 +96,20 @@ def get_menus(data: dict, rest: Restaurant) -> list[dict]:
 
 
 def print_menu(args: ArgsNamespace):
+    fetch_date = datetime.now()
+    if args.tomorrow:
+        fetch_date += timedelta(days=1)
     allergens = []
     if args.allergens:
         allergens = [x.upper() for x in args.allergens]
 
-    print_header()
+    print_header(fetch_date)
     for res in RESTAURANTS:
         try:
-            items = get_restaurant_menu_items(res)
+            items = get_restaurant_menu_items(res, fetch_date)
             sorted(items, key=lambda x: x["orderNumber"])
             if len(items) == 0:
-                print(res.name, "\t --")
+                print(res.name.ljust(8), "--")
             else:
                 print(res.name)
                 if not allergens:
@@ -128,8 +137,7 @@ def print_highlight(items: list[str], allergens: list[str]):
             print("\t", item["name"], item["diets"])
 
 
-def print_header():
-    date = datetime.now()
+def print_header(fetch_date: datetime):
     print("-" * 79)
-    print("Menu for", date.strftime("%d.%m"))
+    print("Menu for", fetch_date.strftime("%d.%m"))
     print("-" * 79)
