@@ -24,13 +24,13 @@ def main():
 
 def get_args():
     parser = argparse.ArgumentParser(
-        description="Display University of Oulu restaurant menus for the day."
+        description="Display University of Oulu restaurant menus for the day"
     )
     parser.add_argument(
         "-v",
         "--version",
         action="version",
-        help="Display version information",
+        help="display version information",
         version=VERSION,
     )
     parser.add_argument(
@@ -38,14 +38,14 @@ def get_args():
         "--explain",
         dest="explain",
         action="store_true",
-        help="Display allergen and marking information",
+        help="display allergen marking information",
     )
     parser.add_argument(
         "-t",
         "--tomorrow",
         dest="tomorrow",
         action="store_true",
-        help="Display menus for tomorrow.",
+        help="display menus for tomorrow",
     )
     allergens = parser.add_argument_group("allergens")
     allergens.add_argument(
@@ -54,9 +54,9 @@ def get_args():
         dest="allergens",
         action="extend",
         type=str,
-        metavar=("letters", "G, VEG"),
+        metavar=("markers", "G, VEG"),
         nargs="+",
-        help='List of allergens, ex. "g veg"',
+        help='list of allergens, for ex. "g veg"',
     )
     return parser.parse_args(namespace=ArgsNamespace())
 
