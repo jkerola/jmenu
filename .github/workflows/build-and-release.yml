@@ -15,18 +15,11 @@ jobs:
           set-safe-directory: true
       - name: Setup environment
         uses: ./.github/actions/setup-env
-      - name: Install pyinstaller
-        run: pip install pyinstaller
       - name: Export version information
         run: |
           echo "Version ${{ github.ref_name }}"
           echo "VERSION = '${{ github.ref_name }}'" > jmenu/version.py
       - name: Build executable
-        run: pyinstaller -F jmenu/jmenu.py
-      - name: Upload binary as release asset
-        uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          files: dist/jmenu
-          fail_on_unmatched_files: true
+        run: python3 -m build
+      - name: Publish package
+        uses: pypa/gh-action-pypi-publish@release/v1
