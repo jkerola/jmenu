@@ -24,11 +24,12 @@ pip install jmenu
 | :-------------- | :------ | :-------------------------------------- |
 | -a, --allergens | g veg   | Highlights appropriately marked results |
 
-| Flag           | Description                     |
-| :------------- | :------------------------------ |
-| -t, --tomorrow | Fetch menu results for tomorrow |
-| -h, --help     | Display usage information       |
-| -v, --version  | Display version information     |
+| Flag           | Description                         |
+| :------------- | :---------------------------------- |
+| -h, --help     | Display usage information           |
+| -v, --version  | Display version information         |
+| -e, --explain  | Display allergen marker information |
+| -t, --tomorrow | Fetch menu results for tomorrow     |
 
 ## Contributing
 
