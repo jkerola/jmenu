@@ -20,15 +20,15 @@ pip install jmenu
 
 #
 
-| Argument              | Example | Description                           |
-| :-------------------- | :------ | :------------------------------------ |
-| --allergens, <br/> -a | G VEG   | Highlights results with the allergen. |
+| Argument        | Example | Description                             |
+| :-------------- | :------ | :-------------------------------------- |
+| -a, --allergens | g veg   | Highlights appropriately marked results |
 
 | Flag           | Description                     |
 | :------------- | :------------------------------ |
 | -t, --tomorrow | Fetch menu results for tomorrow |
-| --help         | Display usage information       |
-| --version      | Display version information     |
+| -h, --help     | Display usage information       |
+| -v, --version  | Display version information     |
 
 # Contributing
 
@@ -43,6 +43,12 @@ Setup the development environment with
 python3 -m virtualenv env
 source env/bin/activate
 pip install -r requirements.txt
+```
+
+Test and run the tool with
+
+```shell
+python3 -m src.jmenu.main
 ```
 
 Build and install the package with

@@ -1,5 +1,11 @@
-from jmenu.version import VERSION
-from jmenu.restaurants import RESTAURANTS, MARKINGS, API_URL, SKIPPED_ITEMS, Restaurant
+from .version import VERSION
+from .restaurants import (
+    RESTAURANTS,
+    MARKINGS,
+    API_URL,
+    SKIPPED_ITEMS,
+    Restaurant,
+)
 from datetime import datetime, timedelta
 import requests
 import argparse
