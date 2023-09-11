@@ -1,5 +1,5 @@
-from version import VERSION
-from restaurants import RESTAURANTS, MARKINGS, API_URL, SKIPPED_ITEMS, Restaurant
+from jmenu.version import VERSION
+from jmenu.restaurants import RESTAURANTS, MARKINGS, API_URL, SKIPPED_ITEMS, Restaurant
 from datetime import datetime, timedelta
 import requests
 import argparse
@@ -140,3 +140,7 @@ def print_header(fetch_date: datetime):
     print("-" * 79)
     print("Menu for", fetch_date.strftime("%d.%m"))
     print("-" * 79)
+
+
+if __name__ == "__main__":
+    main()
