@@ -21,7 +21,7 @@ jobs:
       - name: Export version information
         run: |
           echo "Version ${{ github.ref_name }}"
-          echo "VERSION = '${{ github.ref_name }}'" > jmenu/version.py
+          echo "VERSION = '${{ github.ref_name }}'" > src/jmenu/version.py
       - name: Build executable
         run: python3 -m build
       - name: Publish package
