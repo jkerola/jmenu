@@ -1,5 +1,5 @@
-from version import VERSION
-from restaurants import (
+from .version import VERSION
+from .restaurants import (
     RESTAURANTS,
     MARKINGS,
     API_URL,

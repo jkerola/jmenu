@@ -45,6 +45,12 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
+Test and run the tool with
+
+```shell
+python3 -m src.jmenu.main
+```
+
 Build and install the package with
 
 ```
