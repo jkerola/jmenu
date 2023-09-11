@@ -8,26 +8,23 @@ Versions below 1.3 work by rendering the pages with selenium, then scraping the 
 
 Versions 1.3 and above use the API at [https://fi.jamix.cloud/apps/menuservice/rest](https://fi.jamix.cloud/apps/menuservice/rest)
 
-# Usage
-
-Simply run the binary
+# Installing
 
 ```shell
-chmod +x jmenu
-./jmenu
+pip install jmenu
 ```
 
-to print restaurant menus in the terminal.
+#
 
 | Argument              | Example | Description                           |
 | :-------------------- | :------ | :------------------------------------ |
 | --allergens, <br/> -a | G VEG   | Highlights results with the allergen. |
 
-| Flag      | Description                                        |
-| :-------- | :------------------------------------------------- |
-| --hide    | Hide bad results instead of highlighting good ones |
-| --help    | Display usage information                          |
-| --version | Display version information                        |
+| Flag           | Description                     |
+| :------------- | :------------------------------ |
+| -t, --tomorrow | Fetch menu results for tomorrow |
+| --help         | Display usage information       |
+| --version      | Display version information     |
 
 # Contributing
 
