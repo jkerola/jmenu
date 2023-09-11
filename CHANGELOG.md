@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.2](https://github.com/jkerola/jmenu/compare/v1.4.1...v1.4.2) (2023-09-11)
+
+
+### Bug Fixes
+
+* imports and readme ([#21](https://github.com/jkerola/jmenu/issues/21)) ([834a557](https://github.com/jkerola/jmenu/commit/834a557c886b06275cdfd5b1e16a59579bcadc15))
+
+
+### Documentation
+
+* update readme ([#23](https://github.com/jkerola/jmenu/issues/23)) ([3d1d247](https://github.com/jkerola/jmenu/commit/3d1d247878265ae42cc5ee19c5232e350696ab13))
+* update readme ([#24](https://github.com/jkerola/jmenu/issues/24)) ([1d0ce90](https://github.com/jkerola/jmenu/commit/1d0ce90adf361ebe802dcd3fee4e0bc0b079a24a))
+
 ## [1.4.1](https://github.com/jkerola/jmenu/compare/v1.4.0...v1.4.1) (2023-09-04)
 
 
