@@ -4,11 +4,11 @@
 
 Python app to fetch University of Oulu restaurant menus from Jamix API.
 
+Versions 1.3 and above use the [Jamix API.](https://fi.jamix.cloud/apps/menuservice/rest)
+
 Versions below 1.3 work by rendering the pages with selenium, then scraping the HTML with BeautifulSoup4.
 
-Versions 1.3 and above use the API at [https://fi.jamix.cloud/apps/menuservice/rest](https://fi.jamix.cloud/apps/menuservice/rest)
-
-# Installing
+## Installing
 
 Jmenu is available for install on the [Python package index.](https://pypi.org/project/jmenu/)
 
@@ -30,7 +30,7 @@ pip install jmenu
 | -h, --help     | Display usage information       |
 | -v, --version  | Display version information     |
 
-# Contributing
+## Contributing
 
 **Requirements**
 
