@@ -10,7 +10,7 @@ Versions 1.3 and above use the API at [https://fi.jamix.cloud/apps/menuservice/r
 
 # Installing
 
-Jmenu is available for install on the [Python package index.](https://pypi.org)
+Jmenu is available for install on the [Python package index.](https://pypi.org/project/jmenu/)
 
 Install it with pip:
 
