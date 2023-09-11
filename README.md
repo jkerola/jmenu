@@ -18,7 +18,7 @@ Install it with pip:
 pip install jmenu
 ```
 
-#
+## Usage
 
 | Argument        | Example | Description                             |
 | :-------------- | :------ | :-------------------------------------- |
