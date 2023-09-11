@@ -1,4 +1,4 @@
-from utils import main
+from jmenu.main import main
 
 if __name__ == "__main__":
     main()
