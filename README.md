@@ -20,15 +20,15 @@ pip install jmenu
 
 #
 
-| Argument              | Example | Description                           |
-| :-------------------- | :------ | :------------------------------------ |
-| --allergens, <br/> -a | G VEG   | Highlights results with the allergen. |
+| Argument        | Example | Description                             |
+| :-------------- | :------ | :-------------------------------------- |
+| -a, --allergens | g veg   | Highlights appropriately marked results |
 
 | Flag           | Description                     |
 | :------------- | :------------------------------ |
 | -t, --tomorrow | Fetch menu results for tomorrow |
-| --help         | Display usage information       |
-| --version      | Display version information     |
+| -h, --help     | Display usage information       |
+| -v, --version  | Display version information     |
 
 # Contributing
 
