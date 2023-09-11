@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.3](https://github.com/jkerola/jmenu/compare/v1.4.2...v1.4.3) (2023-09-11)
+
+
+### Miscellaneous Chores
+
+* prepare for pypi release ([#25](https://github.com/jkerola/jmenu/issues/25)) ([06a1c11](https://github.com/jkerola/jmenu/commit/06a1c119c46e75a84d06fef90db82143be1c1133))
+* pypi release 1.4.3 ([ff6471a](https://github.com/jkerola/jmenu/commit/ff6471a86f99c68a8a2e1a5b0c140ee98696585c))
+
 ## [1.4.2](https://github.com/jkerola/jmenu/compare/v1.4.1...v1.4.2) (2023-09-11)
 
 
