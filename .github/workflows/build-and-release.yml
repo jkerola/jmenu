@@ -33,5 +33,7 @@ jobs:
             exit(0)
           except ModuleNotFoundError:
             exit(1)
+      - name: Sanity check cleanup
+        run: pip uninstall jmenu -y
       - name: Publish package
         uses: pypa/gh-action-pypi-publish@release/v1
