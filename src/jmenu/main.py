@@ -3,15 +3,16 @@
 This file contains the logic for executing jmenu from the command line.
 This file can be imported and exposes the following functions:
     * main
+    * get_version
 """
 
-from .version import VERSION
 from .classes import RESTAURANTS, MARKERS, MenuItem
 from .api import get_menu_items
 from datetime import datetime, timedelta
 import argparse
 from time import time
 from sys import exit
+from importlib.metadata import version, PackageNotFoundError
 
 
 class _ArgsNamespace:
@@ -63,7 +64,7 @@ def _get_args():
         "--version",
         action="version",
         help="display version information",
-        version=VERSION,
+        version=get_version(),
     )
     parser.add_argument(
         "-e",
@@ -140,6 +141,13 @@ def _print_header(fetch_date: datetime):
     print("-" * 79)
     print("Menu for", fetch_date.strftime("%d.%m"))
     print("-" * 79)
+
+
+def get_version() -> str:
+    try:
+        return version("jmenu")
+    except PackageNotFoundError:
+        return "development build"
 
 
 if __name__ == "__main__":

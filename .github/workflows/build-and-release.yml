@@ -18,11 +18,20 @@ jobs:
           set-safe-directory: true
       - name: Setup environment
         uses: ./.github/actions/setup-env
-      - name: Export version information
-        run: |
-          echo "Version ${{ github.ref_name }}"
-          echo "VERSION = '${{ github.ref_name }}'" > src/jmenu/version.py
       - name: Build executable
-        run: python3 -m build
+        run: |
+          rm -rf dist
+          python3 -m build
+      - name: Install sanity test
+        run: pip install dist/*.whl
+      - name: Import sanity test
+        shell: python
+        run: |
+          try:
+            import jmenu.main
+            print(jmenu.main.get_version())
+            exit(0)
+          except ModuleNotFoundError:
+            exit(1)
       - name: Publish package
         uses: pypa/gh-action-pypi-publish@release/v1
