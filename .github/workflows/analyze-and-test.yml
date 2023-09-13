@@ -68,5 +68,22 @@ jobs:
           set-safe-directory: true
       - name: Setup environment
         uses: ./.github/actions/setup-env
+      - name: Make sure jmenu isn't installed
+        run: pip uninstall jmenu -y
       - name: Run unit tests
         run: pytest
+      - name: Build package
+        run: |
+          python3 -m build 
+          pip install dist/*.whl
+      - name: Test import
+        shell: python
+        run: |
+          try:
+            import jmenu.main
+            print(jmenu.main.get_version())
+            exit(0)
+          except ModuleNotFoundError:
+            exit(1)
+      - name: Clean
+        run: pip uninstall jmenu -y
