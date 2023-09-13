@@ -11,6 +11,7 @@ from .api import get_menu_items
 from datetime import datetime, timedelta
 import argparse
 from time import time
+from sys import exit
 
 
 class _ArgsNamespace:
@@ -32,14 +33,25 @@ class _ArgsNamespace:
 
 
 def main():
-    """Fetch and print restaurant menus"""
+    """Fetch and print restaurant menus
+
+    Returns
+    ---
+    success : int
+        returns 1 if any errors were encountered
+        returns 0 otherwise
+    """
     args = _get_args()
     if args.explain:
         _print_explanations()
         exit(0)
     start = time()
-    _print_menu(args)
+    errors = _print_menu(args)
     print("Process took {:.2f} seconds.".format(time() - start))
+    if errors:
+        exit(1)
+    else:
+        exit(0)
 
 
 def _get_args():
@@ -82,6 +94,7 @@ def _get_args():
 
 
 def _print_menu(args: _ArgsNamespace):
+    errors = []
     fetch_date = datetime.now()
     if args.tomorrow:
         fetch_date += timedelta(days=1)
@@ -103,8 +116,10 @@ def _print_menu(args: _ArgsNamespace):
                 else:
                     _print_highlight(items, allergens)
 
-        except Exception:
+        except Exception as e:
+            errors.append(e)
             print("Couldn't fetch menu for", res.name)
+    return errors
 
 
 def _print_explanations():

@@ -36,7 +36,8 @@ def fetch_restaurant(rest: Restaurant, fetch_date: datetime) -> list[dict]:
         parsed response json
     """
     response = requests.get(
-        f"{API_URL}/{rest.client_id}/{rest.kitchen_id}?lang=fi&date={fetch_date.strftime('%Y%m%d')}"
+        f"{API_URL}/{rest.client_id}/{rest.kitchen_id}?lang=fi&date={fetch_date.strftime('%Y%m%d')}",
+        timeout=5,
     )
     return response.json()
 
