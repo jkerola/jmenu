@@ -68,5 +68,7 @@ jobs:
           set-safe-directory: true
       - name: Setup environment
         uses: ./.github/actions/setup-env
+      - name: Make sure jmenu isn't installed
+        run: pip uninstall jmenu
       - name: Run unit tests
         run: pytest
