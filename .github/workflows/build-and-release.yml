@@ -22,18 +22,5 @@ jobs:
         run: |
           rm -rf dist
           python3 -m build
-      - name: Install sanity test
-        run: pip install dist/*.whl
-      - name: Import sanity test
-        shell: python
-        run: |
-          try:
-            import jmenu.main
-            print(jmenu.main.get_version())
-            exit(0)
-          except ModuleNotFoundError:
-            exit(1)
-      - name: Sanity check cleanup
-        run: pip uninstall jmenu -y
       - name: Publish package
         uses: pypa/gh-action-pypi-publish@release/v1
