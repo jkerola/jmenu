@@ -59,3 +59,14 @@ jobs:
         uses: psf/black@stable
         with:
           options: "--check"
+  run-tests:
+    name: Tests pass
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          set-safe-directory: true
+      - name: Setup environment
+        uses: ./.github/actions/setup-env
+      - name: Run unit tests
+        run: pytest
