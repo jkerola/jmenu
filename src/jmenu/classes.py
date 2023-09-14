@@ -1,4 +1,4 @@
-"""Classes.py
+"""classes.py
 
 Contains dataclasses jmenu uses to manage data.
 This file can be imported and exposes the following classes:

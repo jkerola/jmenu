@@ -2,7 +2,7 @@
 
 This file contains the logic for executing jmenu from the command line.
 This file can be imported and exposes the following functions:
-    * main
+    * run
     * get_version
 """
 
@@ -10,8 +10,8 @@ from .classes import RESTAURANTS, MARKERS, MenuItem
 from .api import get_menu_items
 from datetime import datetime, timedelta
 import argparse
-from time import time
-from sys import exit
+import time
+import sys
 from importlib.metadata import version, PackageNotFoundError
 
 
@@ -33,7 +33,7 @@ class _ArgsNamespace:
     tomorrow: bool
 
 
-def main():
+def run():
     """Fetch and print restaurant menus
 
     Returns
@@ -45,14 +45,14 @@ def main():
     args = _get_args()
     if args.explain:
         _print_explanations()
-        exit(0)
-    start = time()
+        sys.exit(0)
+    start = time.time()
     errors = _print_menu(args)
-    print("Process took {:.2f} seconds.".format(time() - start))
+    print("Process took {:.2f} seconds.".format(time.time() - start))
     if errors:
-        exit(1)
+        sys.exit(1)
     else:
-        exit(0)
+        sys.exit(0)
 
 
 def _get_args():
@@ -151,4 +151,4 @@ def get_version() -> str:
 
 
 if __name__ == "__main__":
-    main()
+    run()

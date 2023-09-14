@@ -1,0 +1,33 @@
+"""
+jmenu is a tool and python library for fetching University of Oulu restaurant menus from
+the Jamix API.
+
+jmenu can be invoked from the command line as is:
+
+```shell
+jmenu
+```
+
+Additional flags and parameters described below
+
+| Argument        | Example | Description                             |
+| :-------------- | :------ | :-------------------------------------- |
+| -a, --allergens | g veg   | Highlights appropriately marked results |
+
+| Flag           | Description                         |
+| :------------- | :---------------------------------- |
+| -h, --help     | Display usage information           |
+| -v, --version  | Display version information         |
+| -e, --explain  | Display allergen marker information |
+| -t, --tomorrow | Fetch menu results for tomorrow     |
+
+jmenu can also be imported as a library:
+
+```python
+from jmenu.main import main
+
+main()
+```
+
+Documentation for the library can be found at [link here]()
+"""

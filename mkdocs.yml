@@ -1,0 +1,20 @@
+site_name: jmenu
+site_author: jkerola
+plugins:
+  - search
+  - mkdocstrings
+nav:
+  - Home: index.md
+  - Modules:
+      - jmenu.api: modules/api.md
+      - jmenu.classes: modules/classes.md
+      - jmenu.main: modules/main.md
+  - Changelog: changelog.md
+theme:
+  name: material
+  locale: en
+  features:
+    - toc.follow
+markdown_extensions:
+  - pymdownx.snippets
+  - toc

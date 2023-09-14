@@ -4,7 +4,7 @@ Contains functions used to wrangle the JAMIX API.
 This file can be imported and exposes the following functions:
 
     * fetch_restaurant
-    * parse_items_from_response
+    * parse_items
     * get_menu_items
 
 The following constants are also exposed:
@@ -58,13 +58,11 @@ def get_menu_items(rest: Restaurant, fetch_date: datetime) -> list[MenuItem]:
         list of restaurant menu items, see classes.MenuItem
     """
     data = fetch_restaurant(rest, fetch_date)
-    items = parse_items_from_response(data, rest.relevant_menus)
+    items = parse_items(data, rest.relevant_menus)
     return items
 
 
-def parse_items_from_response(
-    data: list[dict], relevant_menus: list[str] = []
-) -> list[MenuItem]:
+def parse_items(data: list[dict], relevant_menus: list[str] = []) -> list[MenuItem]:
     """Returns a list of [MenuItems] parsed from JSON data
 
     Parameters
