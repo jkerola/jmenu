@@ -1,7 +1,7 @@
-"""main.py
-
+"""
 This file contains the logic for executing jmenu from the command line.
 This file can be imported and exposes the following functions:
+    
     * run
     * get_version
 """
@@ -11,21 +11,20 @@ from .api import get_menu_items
 from datetime import datetime, timedelta
 import argparse
 import time
-import sys
+
 from importlib.metadata import version, PackageNotFoundError
 
 
 class _ArgsNamespace:
     """Dataclass for managing command line arguments
 
-    Attributes
-    ---
-    explain : bool
-        print allergen marker info
-    allergens : list[str]
-        highlight the provided allergen markers
-    tomorrow: bool
-        fetch the menus for tomorrow
+    Attributes:
+        explain (bool):
+            print allergen marker info
+        allergens (list[str]):
+            highlight the provided allergen markers
+        tomorrow (bool):
+            fetch the menus for tomorrow
     """
 
     explain: bool
@@ -36,23 +35,22 @@ class _ArgsNamespace:
 def run():
     """Fetch and print restaurant menus
 
-    Returns
-    ---
-    success : int
-        returns 1 if any errors were encountered
-        returns 0 otherwise
+    Returns:
+        success (int):
+            returns 1 if any errors were encountered,
+            returns 0 otherwise
     """
     args = _get_args()
     if args.explain:
         _print_explanations()
-        sys.exit(0)
+        return 0
     start = time.time()
     errors = _print_menu(args)
     print("Process took {:.2f} seconds.".format(time.time() - start))
     if errors:
-        sys.exit(1)
+        return 1
     else:
-        sys.exit(0)
+        return 0
 
 
 def _get_args():
@@ -144,6 +142,15 @@ def _print_header(fetch_date: datetime):
 
 
 def get_version() -> str:
+    """Returns the application build version
+
+    version data is pulled by importlib.metadata.version,
+    defaults to 'development build' if it is not somehow present
+
+    Returns:
+        version (str):
+            semantic versioning string
+    """
     try:
         return version("jmenu")
     except PackageNotFoundError:
