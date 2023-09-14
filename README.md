@@ -98,7 +98,7 @@ Documentation for the project is available in the [project wiki.]()
 
 ## Build documentation from source
 
-The documentation for the modules is built with [Mkdocs.](https://mkdocs.org)
+The documentation for the modules is built with [Mkdocs.](https://mkdocs.org) and the mkdocstrings extension, using google style docstrings.
 
 You can build it from source by installing mkdocs
 
