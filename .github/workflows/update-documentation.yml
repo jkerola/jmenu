@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       build_tag:
-        description: "Repository tag"
+        description: Version tag
         type: string
         required: true
 permissions:
@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: "${{ github.event.inputs.build_tag }}"
+          ref: ${{ github.event.inputs.build_tag }}
       - uses: actions/setup-python@v4
         with:
           python-version: 3.10

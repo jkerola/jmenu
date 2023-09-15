@@ -4,7 +4,11 @@ name: Build & Release
 on:
   # Allows manual triggering
   workflow_dispatch:
-
+    inputs:
+      build_tag:
+        description: Version tag
+        type: string
+        required: true
 jobs:
   build-app:
     name: Build executable
@@ -13,8 +17,9 @@ jobs:
     permissions:
       id-token: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.inputs.build_tag }}
           set-safe-directory: true
       - name: Setup environment
         uses: ./.github/actions/setup-env
