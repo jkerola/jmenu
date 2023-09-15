@@ -1,0 +1,8 @@
+dist
+env
+site
+src
+tests
+.pytest_cache
+.ruff_cache
+__pycache__
