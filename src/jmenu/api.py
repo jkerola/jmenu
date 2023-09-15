@@ -4,7 +4,6 @@ This file can be imported and exposes the following functions:
 
     * fetch_restaurant
     * parse_items
-    * get_menu_items
 
 The following constants are also exposed:
     
@@ -19,7 +18,9 @@ from .classes import Restaurant, MenuItem, SKIPPED_ITEMS
 API_URL = "https://fi.jamix.cloud/apps/menuservice/rest/haku/menu"
 
 
-def fetch_restaurant(rest: Restaurant, fetch_date: datetime) -> list[dict]:
+def fetch_restaurant(
+    rest: Restaurant, fetch_date: datetime, lang_code: str
+) -> list[dict]:
     """Return the JSON response containing all menu information for [Restaurant]
 
     Parameters:
@@ -27,34 +28,19 @@ def fetch_restaurant(rest: Restaurant, fetch_date: datetime) -> list[dict]:
             dataclass containing relevant restaurant information
         fetch_date (datetime):
             datetime object used to fetch the date specified menu
+        lang_code (str):
+            determines the language of the response,
+            supports codes 'fi' and 'en', others might be available in time
 
     Returns:
         (list[dict]):
             parsed response content
     """
     response = requests.get(
-        f"{API_URL}/{rest.client_id}/{rest.kitchen_id}?lang=fi&date={fetch_date.strftime('%Y%m%d')}",
+        f"{API_URL}/{rest.client_id}/{rest.kitchen_id}?lang={lang_code}&date={fetch_date.strftime('%Y%m%d')}",
         timeout=5,
     )
     return response.json()
-
-
-def get_menu_items(rest: Restaurant, fetch_date: datetime) -> list[MenuItem]:
-    """Returns a list of restaurant [MenuItems]
-
-    Parameters:
-        rest (Restaurant):
-            dataclass containing relevant restaurant information
-        fetch_date (datetime):
-            datetime object used to fetch the date specified menu
-
-    Returns:
-        (list[MenuItem]):
-            list of restaurant menu items, see classes.MenuItem
-    """
-    data = fetch_restaurant(rest, fetch_date)
-    items = parse_items(data, rest.relevant_menus)
-    return items
 
 
 def parse_items(data: list[dict], relevant_menus: list[str] = []) -> list[MenuItem]:

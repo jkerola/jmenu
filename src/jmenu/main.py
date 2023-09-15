@@ -7,7 +7,7 @@ This file can be imported and exposes the following functions:
 """
 
 from .classes import RESTAURANTS, MARKERS, MenuItem
-from .api import get_menu_items
+from .api import fetch_restaurant, parse_items
 from datetime import datetime, timedelta
 import argparse
 import time
@@ -31,6 +31,7 @@ class _ArgsNamespace:
     explain: bool
     allergens: list[str]
     tomorrow: bool
+    lang_code: str
 
 
 def run():
@@ -79,6 +80,14 @@ def _get_args():
         action="store_true",
         help="display menus for tomorrow",
     )
+    parser.add_argument(
+        "-l",
+        "--language",
+        dest="lang_code",
+        choices=["fi", "en"],
+        default="en",
+        help="display language for menu items",
+    )
     allergens = parser.add_argument_group("allergens")
     allergens.add_argument(
         "-a",
@@ -106,7 +115,8 @@ def _print_menu(args: _ArgsNamespace):
     _print_header(fetch_date)
     for res in RESTAURANTS:
         try:
-            items = get_menu_items(res, fetch_date)
+            data = fetch_restaurant(res, fetch_date, args.lang_code)
+            items = parse_items(data, res.relevant_menus)
             if len(items) == 0:
                 print(res.name.ljust(8), "--")
             else:
