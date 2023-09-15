@@ -67,7 +67,7 @@ Pull requests are welcome. We use [pre-commit hooks](https://pre-commit.com/) an
 
 **Requirements**
 
-- Python 3.7+
+- Python 3.10+
 - Virtualenv
 
 Setup the development environment with
