@@ -5,7 +5,7 @@ the Jamix API.
 jmenu can be invoked from the command line as is:
 
 ```shell
-jmenu
+jmenu [-h] [-v] [-e] [-t] [-l {fi,en}] [-a markers [G, VEG ...]]
 ```
 
 Additional flags and parameters described below
@@ -20,14 +20,15 @@ Additional flags and parameters described below
 | -v, --version  | Display version information         |
 | -e, --explain  | Display allergen marker information |
 | -t, --tomorrow | Fetch menu results for tomorrow     |
+| -l, --language | Result language, opts: {fi, en}     |
 
 jmenu can also be imported as a library:
 
 ```python
-from jmenu.main import main
+from jmenu import main
 
-main()
+main.run()
 ```
 
-Documentation for the library can be found at [link here]()
+Documentation for the library can be found in the [project pages](https://jkerola.github.io/jmenu)
 """

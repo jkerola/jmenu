@@ -31,7 +31,7 @@ pip install dist/<package_name>.whl
 jmenu can be invoked from the command line as is:
 
 ```shell
-jmenu [-h] [-v] [-e] [-t] [-a markers [G, VEG ...]]
+jmenu [-h] [-v] [-e] [-t] [-l {fi,en}] [-a markers [G, VEG ...]]
 ```
 
 All flags and parameters described below
@@ -46,6 +46,7 @@ All flags and parameters described below
 | -v, --version  | Display version information         |
 | -e, --explain  | Display allergen marker information |
 | -t, --tomorrow | Fetch menu results for tomorrow     |
+| -l, --language | Result language, opts: {fi, en}     |
 
 ### Python library
 

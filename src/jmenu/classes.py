@@ -73,6 +73,10 @@ SKIPPED_ITEMS = [
     "Höyryperunat",
     "Tumma pasta",
     "Meillä tehty perunamuusi",
+    "Mashed Potatoes",
+    "Dark Pasta",
+    "Whole Grain Rice",
+    "Hot Vegetable  Side",  # note the extra space
 ]
 
 RESTAURANTS = [
