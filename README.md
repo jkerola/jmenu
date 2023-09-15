@@ -57,7 +57,7 @@ from jmenu import main
 main.run()
 ```
 
-Documentation for the library can be found in the [project wiki.]()
+Documentation for the library can be found in the [project pages.](https://jkerola.github.io/jmenu)
 
 ## Contributing
 
@@ -94,7 +94,7 @@ pytest
 
 # Documentation
 
-Documentation for the project is available in the [project wiki.]()
+Documentation for the project is available in the [project pages.](https://jkerola.github.io/jmenu)
 
 ## Build documentation from source
 
