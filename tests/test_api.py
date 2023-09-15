@@ -1,8 +1,14 @@
-from jmenu.api import parse_items, fetch_restaurant, get_menu_items
+from jmenu.api import parse_items, fetch_restaurant
 from jmenu.classes import RESTAURANTS
 from conftest import get_json, mock_fetch_restaurant
 from unittest.mock import patch
 from datetime import datetime
+
+
+@patch("jmenu.api.requests.get", side_effect=mock_fetch_restaurant)
+def test_fetch_restaurant(self):
+    rest = list(filter(lambda x: x.name == "Mara", RESTAURANTS)).pop()
+    assert fetch_restaurant(rest, datetime.now(), lang_code="fi") == get_json()
 
 
 def test_parsing_with_defaults():
@@ -16,18 +22,3 @@ def test_parsing_with_rest_values():
     assert rest is not None
     items = parse_items(get_json(), rest.relevant_menus)
     assert len(items) == 6  # Mara relevant menu should result in 6 items
-
-
-@patch("jmenu.api.requests.get", side_effect=mock_fetch_restaurant)
-def test_fetch_restaurant(self):
-    rest = list(filter(lambda x: x.name == "Mara", RESTAURANTS)).pop()
-    assert fetch_restaurant(rest, datetime.now()) == get_json()
-
-
-@patch("jmenu.api.requests.get", side_effect=mock_fetch_restaurant)
-def test_get_menu_items(self):
-    rest = list(filter(lambda x: x.name == "Mara", RESTAURANTS)).pop()
-    results = get_menu_items(rest, datetime.now())
-    assert results is not None
-    assert len(results) == 6
-    assert results[0].name is not None
