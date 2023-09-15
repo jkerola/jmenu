@@ -7,7 +7,7 @@ This file can be imported and exposes the following functions:
 """
 
 from .classes import RESTAURANTS, MARKERS, MenuItem
-from .api import fetch_restaurant, parse_items
+from .api import fetch_restaurant_items
 from datetime import datetime, timedelta
 import argparse
 import time
@@ -115,8 +115,8 @@ def _print_menu(args: _ArgsNamespace):
     _print_header(fetch_date)
     for res in RESTAURANTS:
         try:
-            data = fetch_restaurant(res, fetch_date, args.lang_code)
-            items = parse_items(data, res.relevant_menus)
+            items = fetch_restaurant_items(res, fetch_date, args.lang_code)
+
             if len(items) == 0:
                 print(res.name.ljust(8), "--")
             else:

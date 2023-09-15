@@ -18,10 +18,12 @@ from .classes import Restaurant, MenuItem, SKIPPED_ITEMS
 API_URL = "https://fi.jamix.cloud/apps/menuservice/rest/haku/menu"
 
 
-def fetch_restaurant(
-    rest: Restaurant, fetch_date: datetime, lang_code: str
-) -> list[dict]:
-    """Return the JSON response containing all menu information for [Restaurant]
+def fetch_restaurant_items(
+    rest: Restaurant,
+    fetch_date: datetime,
+    lang_code: str,
+) -> list[MenuItem]:
+    """Return a list of MenuItems for specified Restaurant
 
     Parameters:
         rest (Restaurant):
@@ -29,21 +31,22 @@ def fetch_restaurant(
         fetch_date (datetime):
             datetime object used to fetch the date specified menu
         lang_code (str):
-            determines the language of the response,
-            supports codes 'fi' and 'en', others might be available in time
+            determines the language of the response
+            currently supports codes 'fi' and 'en'
 
     Returns:
-        (list[dict]):
+        (list[MenuItem]):
             parsed response content
     """
     response = requests.get(
         f"{API_URL}/{rest.client_id}/{rest.kitchen_id}?lang={lang_code}&date={fetch_date.strftime('%Y%m%d')}",
         timeout=5,
     )
-    return response.json()
+    data = response.json()
+    return _parse_items(data, rest.relevant_menus)
 
 
-def parse_items(data: list[dict], relevant_menus: list[str] = []) -> list[MenuItem]:
+def _parse_items(data: list[dict], relevant_menus: list[str] = []) -> list[MenuItem]:
     """Returns a list of [MenuItems] parsed from JSON data
 
     Parameters:
