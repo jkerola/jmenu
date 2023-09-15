@@ -1,0 +1,32 @@
+site_name: jmenu
+site_author: jkerola
+repo_url: https://github.com/jkerola/jmenu
+repo_name: jkerola/jmenu
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstrings_style: numpy
+nav:
+  - Home: index.md
+  - Modules:
+      - jmenu.api: modules/api.md
+      - jmenu.classes: modules/classes.md
+      - jmenu.main: modules/main.md
+  - Changelog: changelog.md
+theme:
+  name: material
+  locale: en
+  features:
+    - toc.integrate
+    - toc.follow
+    - navigation.footer
+markdown_extensions:
+  - pymdownx.snippets
+  - pymdownx.highlight
+  - pymdownx.superfences
+extras:
+  version:
+    provider: mike

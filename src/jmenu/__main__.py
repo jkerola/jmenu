@@ -1,4 +1,5 @@
-from .main import main
+from .main import run
+import sys
 
 if __name__ == "__main__":
-    main()
+    sys.exit(run())

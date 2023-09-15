@@ -10,6 +10,10 @@ def mock_fetch_restaurant(*args, **kwargs):
     return MockResponse()
 
 
+def mock_fetch_restaurant_fail():
+    raise Exception("This is an error.")
+
+
 def get_json():
     return [
         {

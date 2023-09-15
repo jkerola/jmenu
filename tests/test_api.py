@@ -1,4 +1,4 @@
-from jmenu.api import parse_items_from_response, fetch_restaurant, get_menu_items
+from jmenu.api import parse_items, fetch_restaurant, get_menu_items
 from jmenu.classes import RESTAURANTS
 from conftest import get_json, mock_fetch_restaurant
 from unittest.mock import patch
@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 def test_parsing_with_defaults():
-    items = parse_items_from_response(get_json())
+    items = parse_items(get_json())
     assert items[0].name is not None
     assert len(items) == 20  # base menu contains 20 items
 
@@ -14,7 +14,7 @@ def test_parsing_with_defaults():
 def test_parsing_with_rest_values():
     rest = list(filter(lambda x: x.name == "Mara", RESTAURANTS)).pop()
     assert rest is not None
-    items = parse_items_from_response(get_json(), rest.relevant_menus)
+    items = parse_items(get_json(), rest.relevant_menus)
     assert len(items) == 6  # Mara relevant menu should result in 6 items
 
 

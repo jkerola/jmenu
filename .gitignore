@@ -8,3 +8,4 @@ jmenu.spec
 .ruff_cache
 *.egg-info
 .pytest_cache
+site

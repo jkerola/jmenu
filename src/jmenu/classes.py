@@ -1,5 +1,4 @@
-"""Classes.py
-
+"""
 Contains dataclasses jmenu uses to manage data.
 This file can be imported and exposes the following classes:
 
@@ -23,12 +22,11 @@ _MenuItem = namedtuple("MenuItem", ["name", "diets"])
 class MenuItem(_MenuItem):
     """Dataclass for single menu items and their properties
 
-    Attributes
-    ---
-    name : str
-        name of the dish
-    diets : str
-        list of allergen markers
+    Attributes:
+        name (str):
+            name of the dish
+        diets (str):
+            list of allergen markers
     """
 
 
@@ -40,18 +38,17 @@ _Restaurant = namedtuple(
 class Restaurant(_Restaurant):
     """Dataclass for relevant restaurant information
 
-    Attributes
-    ---
-    name : str
-        name of the restaurant
-    client_id : str
-        internal jamix identifier used for restaurant providers
-    kitchen_id : str
-        internal jamix identifier used to assign menu content
-    menu_type : str
-        internal jamix identifier used to classify menus based on content
-    relevant_menus : str
-        menu names used for filtering out desserts etc.
+    Attributes:
+        name (str):
+            name of the restaurant
+        client_id (str):
+            internal jamix identifier used for restaurant providers
+        kitchen_id (str):
+            internal jamix identifier used to assign menu content
+        menu_type (str):
+            internal jamix identifier used to classify menus based on content
+        relevant_menus (str):
+            menu names used for filtering out desserts etc.
     """
 
 
@@ -61,12 +58,11 @@ _Marker = namedtuple("Marker", ["letters", "explanation"])
 class Marker(_Marker):
     """Dataclass for allergen information markings
 
-    Attributes
-    ---
-    letters : str
-        allergen markings
-    explanation : str
-        extended information about the marker
+    Attributes:
+        letters (str):
+            allergen markings
+        explanation (str):
+            extended information about the marker
     """
 
 
