@@ -11,6 +11,7 @@ from .api import get_menu_items
 from datetime import datetime, timedelta
 import argparse
 import time
+import sys
 
 from importlib.metadata import version, PackageNotFoundError
 
@@ -158,4 +159,4 @@ def get_version() -> str:
 
 
 if __name__ == "__main__":
-    run()
+    sys.exit(run())
