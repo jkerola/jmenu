@@ -1,5 +1,7 @@
 site_name: jmenu
 site_author: jkerola
+repo_url: https://github.com/jkerola/jmenu
+repo_name: jkerola/jmenu
 plugins:
   - search
   - mkdocstrings:

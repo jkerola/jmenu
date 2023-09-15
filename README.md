@@ -107,4 +107,4 @@ pip install mkdocs mkdocs-material
 mkdocs serve
 ```
 
-and navigating to [http://localhost:8000](http://localhost:8000) in your browser.
+and navigating to [localhost:8000](http://localhost:8000) in your browser.
