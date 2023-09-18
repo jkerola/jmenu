@@ -27,6 +27,6 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.highlight
   - pymdownx.superfences
-extras:
+extra:
   version:
     provider: mike
