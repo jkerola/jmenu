@@ -25,6 +25,12 @@ jobs:
           path: .cache
           restore-keys: |
             mkdocs-material-
-      - run: pip install mkdocs mkdocs-material mkdocstrings[python] mike
-      - run: git fetch origin gh-pages --depth=1
-      - run: mike deploy --push --update-aliases ${{ github.event.inputs.build_tag }} latest -f
+      - name: Install dependencies
+        run: pip install mkdocs mkdocs-material mkdocstrings[python] mike
+      - name: Configure git and gh-pages branch
+        run: |
+          git config user.name mike-ci-bot
+          git config user.email mike-ci-bot@example.com
+          git fetch origin gh-pages --depth=1
+      - name: Build and update alias
+        run: mike deploy --push --update-aliases ${{ github.event.inputs.build_tag }} latest -f
