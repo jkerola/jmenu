@@ -116,7 +116,6 @@ def _print_menu(args: _ArgsNamespace):
     for res in RESTAURANTS:
         try:
             items = fetch_restaurant_items(res, fetch_date, args.lang_code)
-
             if len(items) == 0:
                 print(res.name.ljust(8), "--")
             else:
