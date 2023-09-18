@@ -9,7 +9,7 @@ on:
 permissions:
   contents: write
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v4
@@ -26,4 +26,5 @@ jobs:
           restore-keys: |
             mkdocs-material-
       - run: pip install mkdocs mkdocs-material mkdocstrings[python] mike
+      - run: git fetch origin gh-pages --depth=1
       - run: mike deploy --push --update-aliases ${{ github.event.inputs.build_tag }} latest -f
