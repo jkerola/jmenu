@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.5.0](https://github.com/jkerola/jmenu/compare/v1.4.3...v1.5.0) (2023-09-18)
+
+
+### Features
+
+* add language select option ([#32](https://github.com/jkerola/jmenu/issues/32)) ([d7ebbeb](https://github.com/jkerola/jmenu/commit/d7ebbebc7b2efb510c7a7390730733543e28e901))
+* restructure package as library ([#27](https://github.com/jkerola/jmenu/issues/27)) ([6209c01](https://github.com/jkerola/jmenu/commit/6209c01b131b2a2043b14163c37e106aabf3d3d2))
+
+
+### Bug Fixes
+
+* fix empty prints with english opts ([#34](https://github.com/jkerola/jmenu/issues/34)) ([c765d67](https://github.com/jkerola/jmenu/commit/c765d67a72dfdd01c9974cac86a12953a63b066c))
+
+
+### Documentation
+
+* add mkdocs documentation ([#30](https://github.com/jkerola/jmenu/issues/30)) ([37268c1](https://github.com/jkerola/jmenu/commit/37268c104eba010771c4cd90515174443cbb80e0))
+
 ## [1.4.3](https://github.com/jkerola/jmenu/compare/v1.4.2...v1.4.3) (2023-09-11)
 
 
