@@ -38,21 +38,21 @@ def run():
     """Fetch and print restaurant menus
 
     Returns:
-        success (int):
-            returns 1 if any errors were encountered,
-            returns 0 otherwise
+        success (bool):
+            returns True if any errors were encountered,
+            returns False otherwise
     """
-    args = _get_args()
-    if args.explain:
-        _print_explanations()
-        return 0
-    start = time.time()
-    errors = _print_menu(args)
-    print("Process took {:.2f} seconds.".format(time.time() - start))
-    if errors:
-        return 1
-    else:
-        return 0
+    try:
+        args = _get_args()
+        if args.explain:
+            _print_explanations()
+            return 0
+        start = time.time()
+        encountered_error = _print_menu(args)
+        print("Process took {:.2f} seconds.".format(time.time() - start))
+        return encountered_error
+    except KeyboardInterrupt:
+        return True
 
 
 def _get_args():
@@ -102,8 +102,8 @@ def _get_args():
     return parser.parse_args(namespace=_ArgsNamespace())
 
 
-def _print_menu(args: _ArgsNamespace):
-    errors = []
+def _print_menu(args: _ArgsNamespace) -> bool:
+    encountered_error = False
     fetch_date = datetime.now()
     if args.tomorrow:
         fetch_date += timedelta(days=1)
@@ -125,10 +125,10 @@ def _print_menu(args: _ArgsNamespace):
                 else:
                     _print_highlight(items, allergens)
 
-        except Exception as e:
-            errors.append(e)
+        except Exception:
+            encountered_error = True
             print("Couldn't fetch menu for", res.name)
-    return errors
+    return encountered_error
 
 
 def _print_explanations():
