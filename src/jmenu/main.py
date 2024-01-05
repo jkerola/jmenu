@@ -12,6 +12,7 @@ from datetime import datetime, timedelta
 import argparse
 import time
 import sys
+from os import get_terminal_size
 
 from importlib.metadata import version, PackageNotFoundError
 
@@ -146,9 +147,15 @@ def _print_highlight(items: list[MenuItem], allergens: list[str]):
 
 
 def _print_header(fetch_date: datetime):
-    print("-" * 79)
+    try:
+        width = get_terminal_size()[0]
+        if width is None or width > 79:
+            width = 79
+    except OSError:
+        width = 79
+    print("-" * width)
     print("Menu for", fetch_date.strftime("%d.%m"))
-    print("-" * 79)
+    print("-" * width)
 
 
 def get_version() -> str:
