@@ -14,7 +14,7 @@ The following collections are use-case specific to the University of Oulu:
 """
 
 from typing import NamedTuple
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
 
 
 class MenuItem(NamedTuple):
@@ -67,12 +67,21 @@ class Marker(NamedTuple):
     Attributes:
         letters (str):
             allergen markings
-        explanation (str):
-            extended information about the marker
+        explanation (dict):
+            extended information about the marker, in lang_code: explanation pairs.
+
+
+    Methods:
+        get_explanation(lang: str): returns the explanation string for this Marker. Defaults to english.
     """
 
     letters: str
-    explanation: str
+    explanation: Mapping
+
+    def get_explanation(self, lang_code: str = "en"):
+        "Returns the explanation in the language specified by lang_code. Defaults to english."
+        exp = self.explanation.get(lang_code)
+        return exp if exp is not None else f"No explanation available for '{lang_code}'"
 
 
 # TODO: Remove extra space when the API response is fixed
@@ -99,14 +108,20 @@ RESTAURANTS = [
 ]
 
 MARKERS = [
-    Marker("G", "Gluteeniton"),
-    Marker("M", "Maidoton"),
-    Marker("L", "Laktoositon"),
-    Marker("SO", "Sisältää soijaa"),
-    Marker("SE", "Sisältää selleriä"),
-    Marker("MU", "Munaton"),
-    Marker("[S], *", "Kelan korkeakouluruokailunsuosituksen mukainen"),
-    Marker("SIN", "Sisältää sinappia"),
-    Marker("<3", "Sydänmerkki"),
-    Marker("VEG", "Vegaani"),
+    Marker("G", {"fi": "Gluteeniton", "en": "Gluten-free"}),
+    Marker("M", {"fi": "Maidoton", "en": "Milk-free"}),
+    Marker("L", {"fi": "Laktoositon", "en": "Lactose-free"}),
+    Marker("SO", {"fi": "Sisältää soijaa", "en": "Contains soy"}),
+    Marker("SE", {"fi": "Sisältää selleriä", "en": "Includes cellery"}),
+    Marker("MU", {"fi": "Munaton", "en": "Egg-free"}),
+    Marker(
+        "[S], *",
+        {
+            "fi": "Kelan korkeakouluruokailunsuosituksen mukainen",
+            "en": "Matches the meal recommendation provided by KELA",
+        },
+    ),
+    Marker("SIN", {"fi": "Sisältää sinappia", "en": "Contains mustard"}),
+    Marker("<3", {"fi": "Sydänmerkki", "en": "Better choice mark"}),
+    Marker("VEG", {"fi": "Vegaani", "en": "Vegan"}),
 ]
