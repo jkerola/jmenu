@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.6.0](https://github.com/jkerola/jmenu/compare/v1.5.0...v1.6.0) (2024-01-29)
+
+
+### Features
+
+* limit divider width to terminal size ([#41](https://github.com/jkerola/jmenu/issues/41)) ([52496c1](https://github.com/jkerola/jmenu/commit/52496c193cac0ca595bfd2bf2762cc30212b9d5d))
+
+
+### Bug Fixes
+
+* add keyboard interrupt try-catch ([#38](https://github.com/jkerola/jmenu/issues/38)) ([1f14ab2](https://github.com/jkerola/jmenu/commit/1f14ab22f93c8c42cd3fa24d2b7d0909b6a3e465))
+* add translations for explanations ([#44](https://github.com/jkerola/jmenu/issues/44)) ([1f08e72](https://github.com/jkerola/jmenu/commit/1f08e7247bb882f4ad1f595e3c6245ae76ec0be2))
+
+
+### Performance Improvements
+
+* improve dataclass serialization ([#43](https://github.com/jkerola/jmenu/issues/43)) ([d08450c](https://github.com/jkerola/jmenu/commit/d08450c073a5cd100f4aa7af03079864cf1de27f))
+
 ## [1.5.0](https://github.com/jkerola/jmenu/compare/v1.4.3...v1.5.0) (2023-09-18)
 
 
