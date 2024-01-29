@@ -46,7 +46,7 @@ def run():
     try:
         args = _get_args()
         if args.explain:
-            _print_explanations()
+            _print_explanations(args.lang_code)
             return 0
         start = time.time()
         encountered_error = _print_menu(args)
@@ -135,9 +135,9 @@ def _print_menu(args: _ArgsNamespace) -> bool:
     return encountered_error
 
 
-def _print_explanations():
+def _print_explanations(lang_code: str = "en"):
     for mark in MARKERS:
-        print(mark.letters, "\t", mark.explanation)
+        print(mark.letters, "\t", mark.get_explanation(lang_code))
 
 
 def _print_highlight(items: list[MenuItem], queried_allergens: list[str]):
