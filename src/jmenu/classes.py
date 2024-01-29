@@ -14,6 +14,7 @@ The following collections are use-case specific to the University of Oulu:
 """
 
 from typing import NamedTuple
+from collections.abc import Iterable
 
 
 class MenuItem(NamedTuple):
@@ -30,7 +31,7 @@ class MenuItem(NamedTuple):
     """
 
     name: str
-    diets: [str]
+    diets: Iterable[str]
 
     def diets_to_string(self) -> str:
         """Returns the diets associated with this MenuItem as spaced string."""
@@ -57,7 +58,7 @@ class Restaurant(NamedTuple):
     client_id: int
     kitchen_id: int
     menu_type: int
-    relevant_menus: [str]
+    relevant_menus: Iterable[str]
 
 
 class Marker(NamedTuple):
