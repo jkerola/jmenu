@@ -13,49 +13,55 @@ The following collections are use-case specific to the University of Oulu:
     * SKIPPED_ITEMS
 """
 
-from collections import namedtuple
+from typing import NamedTuple
+from collections.abc import Iterable
 
 
-_MenuItem = namedtuple("MenuItem", ["name", "diets"])
-
-
-class MenuItem(_MenuItem):
+class MenuItem(NamedTuple):
     """Dataclass for single menu items and their properties
 
     Attributes:
         name (str):
             name of the dish
-        diets (str):
+        diets ([str]):
             list of allergen markers
+
+    Methods:
+        diets_to_string: returns the list of diets as a joined string.
     """
 
+    name: str
+    diets: Iterable[str]
 
-_Restaurant = namedtuple(
-    "Restaurant", ["name", "client_id", "kitchen_id", "menu_type", "relevant_menus"]
-)
+    def diets_to_string(self) -> str:
+        """Returns the diets associated with this MenuItem as spaced string."""
+        return " ".join(self.diets)
 
 
-class Restaurant(_Restaurant):
+class Restaurant(NamedTuple):
     """Dataclass for relevant restaurant information
 
     Attributes:
         name (str):
             name of the restaurant
-        client_id (str):
+        client_id (int):
             internal jamix identifier used for restaurant providers
-        kitchen_id (str):
+        kitchen_id (int):
             internal jamix identifier used to assign menu content
-        menu_type (str):
+        menu_type (int):
             internal jamix identifier used to classify menus based on content
-        relevant_menus (str):
+        relevant_menus ([str]):
             menu names used for filtering out desserts etc.
     """
 
+    name: str
+    client_id: int
+    kitchen_id: int
+    menu_type: int
+    relevant_menus: Iterable[str]
 
-_Marker = namedtuple("Marker", ["letters", "explanation"])
 
-
-class Marker(_Marker):
+class Marker(NamedTuple):
     """Dataclass for allergen information markings
 
     Attributes:
@@ -65,7 +71,11 @@ class Marker(_Marker):
             extended information about the marker
     """
 
+    letters: str
+    explanation: str
 
+
+# TODO: Remove extra space when the API response is fixed
 SKIPPED_ITEMS = [
     "proteiinilisäke",
     "Täysjyväriisi",

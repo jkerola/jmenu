@@ -122,7 +122,10 @@ def _print_menu(args: _ArgsNamespace) -> bool:
             else:
                 print(res.name)
                 if not allergens:
-                    print(*[f"\t {item.name} {item.diets}" for item in items], sep="\n")
+                    print(
+                        *[f"\t {item.name} {item.diets_to_string()}" for item in items],
+                        sep="\n",
+                    )
                 else:
                     _print_highlight(items, allergens)
 
@@ -137,13 +140,13 @@ def _print_explanations():
         print(mark.letters, "\t", mark.explanation)
 
 
-def _print_highlight(items: list[MenuItem], allergens: list[str]):
+def _print_highlight(items: list[MenuItem], queried_allergens: list[str]):
     for item in items:
-        diets = [diets.strip().lower() for diets in item.diets.split(",")]
-        if all(marker in diets for marker in allergens):
-            print("\033[92m", "\t", item.name, item.diets, "\033[0m")
+        item_markers = [diet.strip().lower() for diet in item.diets]
+        if all(marker in item_markers for marker in queried_allergens):
+            print("\033[92m", "\t", item.name, item.diets_to_string(), "\033[0m")
         else:
-            print("\t", item.name, item.diets)
+            print("\t", item.name, item.diets_to_string())
 
 
 def _print_header(fetch_date: datetime):
