@@ -74,5 +74,5 @@ def _parse_items(data: list[dict], relevant_menus: list[str] = []) -> list[MenuI
         for opt in mealopts:
             for item in opt["menuItems"]:
                 if item["name"] not in SKIPPED_ITEMS and len(item["name"]) > 0:
-                    items.append(MenuItem(item["name"], item["diets"]))
+                    items.append(MenuItem(item["name"], item["diets"].split(" ")))
     return items

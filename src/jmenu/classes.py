@@ -24,10 +24,17 @@ class MenuItem(NamedTuple):
             name of the dish
         diets ([str]):
             list of allergen markers
+
+    Methods:
+        diets_to_string: returns the list of diets as a joined string.
     """
 
     name: str
     diets: [str]
+
+    def diets_to_string(self) -> str:
+        """Returns the diets associated with this MenuItem as spaced string."""
+        return " ".join(self.diets)
 
 
 class Restaurant(NamedTuple):
