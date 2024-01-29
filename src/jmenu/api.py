@@ -10,7 +10,6 @@ The following constants are also exposed:
     * API_URL
 """
 
-
 import requests
 from datetime import datetime
 from .classes import Restaurant, MenuItem, SKIPPED_ITEMS
