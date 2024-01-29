@@ -33,4 +33,4 @@ jobs:
           git config user.email mike-ci-bot@example.com
           git fetch origin gh-pages --depth=1
       - name: Build and update alias
-        run: mike deploy --push --update-aliases ${{ github.event.inputs.build_tag }} latest -f
+        run: mike deploy --push --update-aliases ${{ github.event.inputs.build_tag }} latest
