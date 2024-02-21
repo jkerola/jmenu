@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/jkerola/jmenu/compare/v1.6.0...v1.6.1) (2024-02-21)
+
+
+### Bug Fixes
+
+* improve translations ([#46](https://github.com/jkerola/jmenu/issues/46)) ([8d7c5eb](https://github.com/jkerola/jmenu/commit/8d7c5ebc3f5a36d3787fbcbb68fe8d5f3c6b6df3))
+
 ## [1.6.0](https://github.com/jkerola/jmenu/compare/v1.5.0...v1.6.0) (2024-01-29)
 
 
