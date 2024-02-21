@@ -118,10 +118,10 @@ MARKERS = [
         "[S], *",
         {
             "fi": "Kelan korkeakouluruokailunsuosituksen mukainen",
-            "en": "Matches the meal recommendation provided by KELA",
+            "en": "Matches recommendation standards provided by KELA",
         },
     ),
     Marker("SIN", {"fi": "Sisältää sinappia", "en": "Contains mustard"}),
-    Marker("<3", {"fi": "Sydänmerkki", "en": "Better choice mark"}),
+    Marker("<3", {"fi": "Sydänmerkki", "en": "Better choice indicator"}),
     Marker("VEG", {"fi": "Vegaani", "en": "Vegan"}),
 ]
