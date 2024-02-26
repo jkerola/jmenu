@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2](https://github.com/jkerola/jmenu/compare/v1.6.1...v1.6.2) (2024-02-26)
+
+
+### Bug Fixes
+
+* fix allergen highlights ([#48](https://github.com/jkerola/jmenu/issues/48)) ([bb6ae91](https://github.com/jkerola/jmenu/commit/bb6ae91a6dda9c135e168934de6d509fbe87067b))
+
 ## [1.6.1](https://github.com/jkerola/jmenu/compare/v1.6.0...v1.6.1) (2024-02-21)
 
 
