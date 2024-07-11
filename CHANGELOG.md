@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.3](https://github.com/jkerola/jmenu/compare/v1.6.2...v1.6.3) (2024-07-11)
+
+
+### Bug Fixes
+
+* update foobar restaurant information for 7/24 ([#50](https://github.com/jkerola/jmenu/issues/50)) ([7e4a647](https://github.com/jkerola/jmenu/commit/7e4a6471b5207c25b218c10bd3317106bde937ae))
+
 ## [1.6.2](https://github.com/jkerola/jmenu/compare/v1.6.1...v1.6.2) (2024-02-26)
 
 
