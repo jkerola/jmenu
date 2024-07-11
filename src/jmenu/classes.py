@@ -99,7 +99,7 @@ SKIPPED_ITEMS = [
 ]
 
 RESTAURANTS = [
-    Restaurant("Foobar", 93077, 49, 84, ["Foobar Salad and soup", "Foobar Rohee"]),
+    Restaurant("Foobar", 93077, 69, 84, ["Foobar Salad and soup", "Foobar Rohee"]),
     Restaurant("Foodoo", 93077, 48, 89, ["Foodoo Salad and soup", "Foodoo Reilu"]),
     Restaurant("Kastari", 95663, 5, 2, ["Ruokalista"]),
     Restaurant("Kylymä", 93077, 48, 92, ["Kylymä Rohee"]),
