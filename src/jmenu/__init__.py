@@ -32,3 +32,12 @@ main.run()
 
 Documentation for the library can be found in the [project pages](https://jkerola.github.io/jmenu)
 """
+
+from .classes import Marker, MenuItem, MenuItemFactory, Restaurant
+
+__all__ = [
+    "Restaurant",
+    "Marker",
+    "MenuItem",
+    "MenuItemFactory",
+]
