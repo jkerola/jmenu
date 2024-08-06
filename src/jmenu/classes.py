@@ -50,9 +50,11 @@ class Restaurant:
 
 class MealdooRestaurant(Restaurant):
     menu_name: str
+    organization: str
 
-    def __init__(self, name: str, menu_name: str):
+    def __init__(self, name: str, menu_name: str, organization: str):
         self.menu_name = menu_name
+        self.organization = organization
         Restaurant.__init__(self, name)
 
 
@@ -127,7 +129,7 @@ RESTAURANTS = [
     JamixRestaurant("Foodoo", 93077, 48, 89, ["Foodoo Salad and soup", "Foodoo Reilu"]),
     # JamixRestaurant("Kastari", 95663, 5, 2, ["Ruokalista"]),
     JamixRestaurant("Kylymä", 93077, 48, 92, ["Kylymä Rohee"]),
-    MealdooRestaurant("Julinia", "ravintolajulinia"),
+    MealdooRestaurant("Julinia", "ravintolajulinia", "uniresta"),
     JamixRestaurant("Mara", 93077, 49, 111, ["Salad and soup", "Ravintola Mara"]),
     JamixRestaurant("Napa", 93077, 48, 79, ["Napa Rohee"]),
 ]
@@ -163,14 +165,30 @@ class ApiEndpoint:
 
 
 class MealdooApi(ApiEndpoint):
-    baseUrl = "https://api.fi.poweresta.com/publicmenu/dates/uniresta"
+    baseUrl = "https://api.fi.poweresta.com/publicmenu/dates"
 
-    def create_url_for_restaurant(
-        self, restaurant: MealdooRestaurant, date: datetime
-    ) -> str:
-        return f"{self.baseUrl}/{restaurant.name.lower()}/?menu={restaurant.menu_name}&dates={date.strftime('%Y-%m-%d')}"
+    def create_url_for_restaurant(self, res: MealdooRestaurant, date: datetime) -> str:
+        """Generate a URL with appropriate parameters for given [Restaurant].
+
+        Args:
+            res (MealdooRestaurant): Restaurant with appropriate metadata.
+            date (datetime): Menu date.
+
+        Returns:
+            str: URL with formatted parameters.
+        """
+        return f"{self.baseUrl}/{res.organization}/{res.name.lower()}/?menu={res.menu_name}&dates={date.strftime('%Y-%m-%d')}"
 
     def parse_items(self, data: list[dict], lang_code: str) -> list[MenuItem]:
+        """Create [MenuItems] based on response JSON.
+
+        Args:
+            data (list[dict]): Response JSON data.
+            lang_code (str): Language code. Either "fi" or "en".
+
+        Returns:
+            list[MenuItem]: List of [MenuItems]
+        """
         items = []
         for result in data:
             try:
@@ -201,11 +219,21 @@ class JamixApi(ApiEndpoint):
 
     def create_url_for_restaurant(
         self,
-        restaurant: JamixRestaurant,
+        res: JamixRestaurant,
         date: datetime,
         lang_code="en",
     ) -> str:
-        return f"{self.baseUrl}/{restaurant.client_id}/{restaurant.kitchen_id}?lang={lang_code}&date={date.strftime('%Y%m%d')}"
+        """Returns the formatted URL with given restaurant metadata as parameters.
+
+        Args:
+            res (JamixRestaurant): Restaurant metadata.
+            date (datetime): Menu date.
+            lang_code (str, optional): Language. Defaults to "en".
+
+        Returns:
+            str: Formatted URL string.
+        """
+        return f"{self.baseUrl}/{res.client_id}/{res.kitchen_id}?lang={lang_code}&date={date.strftime('%Y%m%d')}"
 
     def parse_items(
         self, data: list[dict], relevant_menus: list[str]
@@ -252,6 +280,16 @@ class MenuItemFactory:
         date: datetime,
         lang_code="en",
     ) -> list[MenuItem]:
+        """Fetch and create menu items for given [Restaurant].
+
+        Args:
+            restaurant (JamixRestaurant | MealdooRestaurant): Restaurant metadata.
+            date (datetime): Menu date.
+            lang_code (str, optional): Result language. Defaults to "en".
+
+        Returns:
+            list[MenuItem]: List of [MenuItems].
+        """
         if type(restaurant) is JamixRestaurant:
             url = self.jamix.create_url_for_restaurant(restaurant, date, lang_code)
             data = requests.get(url, timeout=5).json()
