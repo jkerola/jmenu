@@ -182,13 +182,14 @@ class MealdooApi(ApiEndpoint):
                         for name in row["names"]:
                             if name["language"] == lang_code and name["name"]:
                                 title, *extra_diets = name["name"].split(",")
+                                title = " ".join(title.split(" ")[:-1])
                                 diets.extend(extra_diets)
 
                         for diet in row["diets"]:
                             if diet["language"] == lang_code and diet["dietShorts"]:
                                 diets.extend(diet["dietShorts"])
-
-                        items.append(MenuItem(title, set(diets)))
+                        diets = set([diet.strip() for diet in diets])
+                        items.append(MenuItem(title if title else "???", diets))
             except Exception:
                 pass
 
