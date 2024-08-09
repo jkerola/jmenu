@@ -1,9 +1,5 @@
 """
 This file contains the logic for executing jmenu from the command line.
-This file can be imported and exposes the following functions:
-
-    * run
-    * get_version
 """
 
 import argparse

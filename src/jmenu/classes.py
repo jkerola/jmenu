@@ -1,10 +1,5 @@
 """
 Contains dataclasses jmenu uses to manage data.
-This file can be imported and exposes the following classes:
-
-    * MenuItem
-    * Restaurant
-    * Marker
 
 The following collections are use-case specific to the University of Oulu:
 
@@ -155,6 +150,8 @@ MARKERS = [
 
 
 class ApiEndpoint:
+    """Base class for API endpoints."""
+
     baseUrl: str
 
     def create_url_for_restaurant(restaurant: Restaurant):
@@ -165,6 +162,8 @@ class ApiEndpoint:
 
 
 class MealdooApi(ApiEndpoint):
+    """Utility class for parsing Mealdoo API responses."""
+
     baseUrl = "https://api.fi.poweresta.com/publicmenu/dates"
 
     def create_url_for_restaurant(self, res: MealdooRestaurant, date: datetime) -> str:
@@ -215,6 +214,8 @@ class MealdooApi(ApiEndpoint):
 
 
 class JamixApi(ApiEndpoint):
+    """Utility class for parsing Jamix API responses."""
+
     baseUrl = "https://fi.jamix.cloud/apps/menuservice/rest/haku/menu"
 
     def create_url_for_restaurant(
@@ -271,6 +272,8 @@ class JamixApi(ApiEndpoint):
 
 
 class MenuItemFactory:
+    """Factory function for creating and parsing requests to all restaurant APIs."""
+
     jamix = JamixApi()
     mealdoo = MealdooApi()
 
@@ -295,7 +298,7 @@ class MenuItemFactory:
             data = requests.get(url, timeout=5).json()
             return self.jamix.parse_items(data, restaurant.relevant_menus)
 
-        elif isinstance(restaurant, MealdooRestaurant):
+        elif type(restaurant) is MealdooRestaurant:
             url = self.mealdoo.create_url_for_restaurant(restaurant, date)
             data = requests.get(url, timeout=5).json()
             return self.mealdoo.parse_items(data, lang_code)
