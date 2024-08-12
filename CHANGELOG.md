@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.7.0](https://github.com/jkerola/jmenu/compare/v1.6.3...v1.7.0) (2024-08-12)
+
+
+### Features
+
+* add mealdoo restaurant support ([#52](https://github.com/jkerola/jmenu/issues/52)) ([f96c409](https://github.com/jkerola/jmenu/commit/f96c40922ab0e8a7c553d1947998ef2e9ce7b449))
+
+
+### Bug Fixes
+
+* improve print output upon error ([f96c409](https://github.com/jkerola/jmenu/commit/f96c40922ab0e8a7c553d1947998ef2e9ce7b449))
+
+
+### Documentation
+
+* update docstrings ([f96c409](https://github.com/jkerola/jmenu/commit/f96c40922ab0e8a7c553d1947998ef2e9ce7b449))
+
 ## [1.6.3](https://github.com/jkerola/jmenu/compare/v1.6.2...v1.6.3) (2024-07-11)
 
 
