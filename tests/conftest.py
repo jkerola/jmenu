@@ -1,9 +1,10 @@
 # ruff: noqa
+import pytest
 
 
 class MockResponse:
     def json(self):
-        return get_json()
+        return jamix_response()
 
 
 def mock_fetch_restaurant(*args, **kwargs):
@@ -14,7 +15,12 @@ def mock_fetch_restaurant_fail():
     raise Exception("This is an error.")
 
 
-def get_json():
+@pytest.fixture
+def mock_jamix():
+    return jamix_response()
+
+
+def jamix_response():
     return [
         {
             "kitchenName": "Ravintola Mara",
