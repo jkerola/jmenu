@@ -1,20 +1,15 @@
 """
 This file contains the logic for executing jmenu from the command line.
-This file can be imported and exposes the following functions:
-    
-    * run
-    * get_version
 """
 
-from .classes import RESTAURANTS, MARKERS, MenuItem
-from .api import fetch_restaurant_items
-from datetime import datetime, timedelta
 import argparse
-import time
 import sys
+import time
+from datetime import datetime, timedelta
+from importlib.metadata import PackageNotFoundError, version
 from os import get_terminal_size
 
-from importlib.metadata import version, PackageNotFoundError
+from .classes import MARKERS, RESTAURANTS, MenuItem, MenuItemFactory
 
 
 class _ArgsNamespace:
@@ -104,6 +99,7 @@ def _get_args():
 
 
 def _print_menu(args: _ArgsNamespace) -> bool:
+    fac = MenuItemFactory()
     encountered_error = False
     fetch_date = datetime.now()
     if args.tomorrow:
@@ -116,7 +112,7 @@ def _print_menu(args: _ArgsNamespace) -> bool:
     _print_header(fetch_date)
     for res in RESTAURANTS:
         try:
-            items = fetch_restaurant_items(res, fetch_date, args.lang_code)
+            items = fac.get_menu_items(res, fetch_date, args.lang_code)
             if len(items) == 0:
                 print(res.name.ljust(8), "--")
             else:
@@ -129,7 +125,8 @@ def _print_menu(args: _ArgsNamespace) -> bool:
                 else:
                     _print_highlight(items, allergens)
 
-        except Exception:
+        except Exception as e:
+            print(e)
             encountered_error = True
             print("Couldn't fetch menu for", res.name)
     return encountered_error

@@ -2,7 +2,7 @@ exclude: "CHANGELOG.md"
 repos:
   # Detect secrets
   - repo: https://github.com/Yelp/detect-secrets
-    rev: "v1.4.0"
+    rev: "v1.5.0"
     hooks:
       - id: detect-secrets
         args: ["--baseline", ".secrets.baseline"]
@@ -15,7 +15,7 @@ repos:
         args: ["--cache=false"]
   # Black formatter
   - repo: https://github.com/psf/black
-    rev: 24.1.1
+    rev: 24.8.0
     hooks:
       - id: black
         # It is recommended to specify the latest version of Python
@@ -26,11 +26,11 @@ repos:
     # Ruff linter
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     # Ruff version.
-    rev: "v0.1.14"
+    rev: "v0.5.7"
     hooks:
       - id: ruff
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-yaml
       - id: end-of-file-fixer

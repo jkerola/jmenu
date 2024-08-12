@@ -12,7 +12,7 @@ def test_version_system():
     assert get_version() == comp
 
 
-@patch("jmenu.api.requests.get", side_effect=mock_fetch_restaurant)
+@patch("jmenu.classes.requests.get", side_effect=mock_fetch_restaurant)
 def test_run(self, capsys):
     exit_code = run()
     assert exit_code == 0
@@ -20,7 +20,7 @@ def test_run(self, capsys):
     assert "Creme" in out
 
 
-@patch("jmenu.api.requests.get", side_effect=mock_fetch_restaurant_fail)
+@patch("jmenu.classes.requests.get", side_effect=mock_fetch_restaurant_fail)
 def test_run_on_failed_fetch(self, capsys):
     exit_code = run()
     assert exit_code == 1
