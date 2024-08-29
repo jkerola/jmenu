@@ -121,12 +121,11 @@ SKIPPED_ITEMS = [
 
 RESTAURANTS = [
     JamixRestaurant("Foobar", 93077, 69, 84, ["Foobar Salad and soup", "Foobar Rohee"]),
-    JamixRestaurant("Foodoo", 93077, 48, 89, ["Foodoo Salad and soup", "Foodoo Reilu"]),
-    # JamixRestaurant("Kastari", 95663, 5, 2, ["Ruokalista"]),
-    JamixRestaurant("Kylymä", 93077, 48, 92, ["Kylymä Rohee"]),
     MealdooRestaurant("Julinia", "ravintolajulinia", "uniresta"),
+    JamixRestaurant("Kerttu", 93077, 70, 118, ["Kerttu lounas"]),
+    JamixRestaurant("Kylymä", 93077, 48, 92, ["Kylymä Rohee"]),
+    MealdooRestaurant("Lipasto", "ravintolalipasto", "uniresta"),
     JamixRestaurant("Mara", 93077, 49, 111, ["Salad and soup", "Ravintola Mara"]),
-    JamixRestaurant("Napa", 93077, 48, 79, ["Napa Rohee"]),
 ]
 
 MARKERS = [
@@ -198,9 +197,14 @@ class MealdooApi(ApiEndpoint):
                         diets = []
                         for name in row["names"]:
                             if name["language"] == lang_code and name["name"]:
-                                title, *extra_diets = name["name"].split(",")
-                                title = " ".join(title.split(" ")[:-1])
-                                diets.extend(extra_diets)
+                                # title, *extra_diets = name["name"].split(",")
+                                parts = name["name"].split(" ")
+                                extra_diets = parts[-1].split(",")
+                                if len(extra_diets) == 1 and len(extra_diets[0]) > 1:
+                                    title = name["name"]
+                                else:
+                                    diets.extend(extra_diets)
+                                    title = " ".join(parts[:-1])
 
                         for diet in row["diets"]:
                             if diet["language"] == lang_code and diet["dietShorts"]:
