@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/jkerola/jmenu/compare/v1.7.0...v1.8.0) (2024-08-29)
+
+
+### Features
+
+* add fall 2024 restaurants to cli ([#54](https://github.com/jkerola/jmenu/issues/54)) ([5a8af81](https://github.com/jkerola/jmenu/commit/5a8af818638a0f425b2520ef6a8a77c86f94d64a))
+
 ## [1.7.0](https://github.com/jkerola/jmenu/compare/v1.6.3...v1.7.0) (2024-08-12)
 
 
