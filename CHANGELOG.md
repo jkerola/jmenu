@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/jkerola/jmenu/compare/v1.8.0...v1.9.0) (2024-09-02)
+
+
+### Features
+
+* add restaurant voltti ([#56](https://github.com/jkerola/jmenu/issues/56)) ([67f1149](https://github.com/jkerola/jmenu/commit/67f1149e390090a8a278bc14be28ea56a5d8ca9f))
+
 ## [1.8.0](https://github.com/jkerola/jmenu/compare/v1.7.0...v1.8.0) (2024-08-29)
 
 
