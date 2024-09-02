@@ -109,8 +109,10 @@ class Marker(NamedTuple):
 SKIPPED_ITEMS = [
     "proteiinilisäke",
     "Täysjyväriisi",
+    "Täyshyväriisiä",
     "Lämmin kasvislisäke",
     "Höyryperunat",
+    "Keitetyt perunat",
     "Tumma pasta",
     "Meillä tehty perunamuusi",
     "Mashed Potatoes",
@@ -123,9 +125,9 @@ RESTAURANTS = [
     JamixRestaurant("Foobar", 93077, 69, 84, ["Foobar Salad and soup", "Foobar Rohee"]),
     MealdooRestaurant("Julinia", "ravintolajulinia", "uniresta"),
     JamixRestaurant("Kerttu", 93077, 70, 118, ["Kerttu lounas"]),
-    JamixRestaurant("Kylymä", 93077, 48, 92, ["Kylymä Rohee"]),
     MealdooRestaurant("Lipasto", "ravintolalipasto", "uniresta"),
     JamixRestaurant("Mara", 93077, 49, 111, ["Salad and soup", "Ravintola Mara"]),
+    JamixRestaurant("Voltti", 93077, 70, 119, ["Voltti lounas"]),
 ]
 
 MARKERS = [
