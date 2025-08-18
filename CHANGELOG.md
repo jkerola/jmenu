@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0](https://github.com/jkerola/jmenu/compare/v1.9.0...v1.10.0) (2025-08-18)
+
+
+### Features
+
+* update restaurant definitions for 2025 ([5a4b2ba](https://github.com/jkerola/jmenu/commit/5a4b2bae19615d76a56d3658c76ac3ec10da309a))
+
 ## [1.9.0](https://github.com/jkerola/jmenu/compare/v1.8.0...v1.9.0) (2024-09-02)
 
 
