@@ -35,6 +35,17 @@ class MenuItem(NamedTuple):
         """Returns the diets associated with this MenuItem as spaced string."""
         return " ".join(self.diets)
 
+    def __eq__(self, other):
+        """Compare two MenuItems with each other. Only considers name.
+
+        Args:
+            other (MenuItem): MenuItem to compare with
+
+        Returns:
+            MenuItem: MenuItem to compare with
+        """
+        return self.name == other.name
+
 
 class Restaurant:
     name: str
@@ -44,6 +55,13 @@ class Restaurant:
 
 
 class MealdooRestaurant(Restaurant):
+    """API representation and utility class for Mealdoo restaurants.
+
+    Attributes:
+        menu_name (str): string identifier of the menu
+        organization (str): string identifier of the restaurant organization
+    """
+
     menu_name: str
     organization: str
 
@@ -80,6 +98,20 @@ class JamixRestaurant(Restaurant):
         self.menu_type = menu_type
         self.kitchen_id = kitchen_id
         self.relevant_menus = relevant_menus
+
+
+class SodexoRestaurant(Restaurant):
+    """API representation and utility class
+
+    Attributes:
+        client_id (int): numerical representation of the client id
+    """
+
+    client_id: int
+
+    def __init__(self, name, client_id: int):
+        super().__init__(name)
+        self.client_id = client_id
 
 
 class Marker(NamedTuple):
@@ -123,10 +155,9 @@ SKIPPED_ITEMS = [
 
 RESTAURANTS = [
     JamixRestaurant("Foobar", 93077, 69, 84, ["Foobar Salad and soup", "Foobar Rohee"]),
-    MealdooRestaurant("Julinia", "ravintolajulinia", "uniresta"),
     JamixRestaurant("Kerttu", 93077, 70, 118, ["Kerttu lounas"]),
-    MealdooRestaurant("Lipasto", "ravintolalipasto", "uniresta"),
     JamixRestaurant("Mara", 93077, 49, 111, ["Salad and soup", "Ravintola Mara"]),
+    SodexoRestaurant("Mustikka & Hilla", 3305493),
     JamixRestaurant("Voltti", 93077, 70, 119, ["Voltti lounas"]),
 ]
 
@@ -160,6 +191,29 @@ class ApiEndpoint:
 
     def parse_items() -> list[MenuItem]:
         pass
+
+
+class SodexoApi(ApiEndpoint):
+    baseUrl = "https://www.sodexo.fi/ruokalistat/output/weekly_json"
+
+    def create_url_for_restaurant(
+        self,
+        restaurant,
+    ):
+        return f"{self.baseUrl}/{restaurant.client_id}"
+
+    def parse_items(self, data: dict, date: datetime, lang_code: str = "en"):
+        items = []
+        try:
+            courses = data["mealdates"][(date.weekday())]["courses"]
+            for course in courses.values():
+                diets = course["dietcodes"].replace(" ", "").split(",")
+                name = course[f"title_{lang_code}"]
+                items.append(MenuItem(name, diets))
+
+        except Exception as e:
+            print(e)
+        return items
 
 
 class MealdooApi(ApiEndpoint):
@@ -273,7 +327,9 @@ class JamixApi(ApiEndpoint):
             for opt in mealopts:
                 for item in opt["menuItems"]:
                     if item["name"] not in SKIPPED_ITEMS and len(item["name"]) > 0:
-                        items.append(MenuItem(item["name"], item["diets"].split(",")))
+                        item = MenuItem(item["name"], item["diets"].split(","))
+                        if item not in items:
+                            items.append(item)
         return items
 
 
@@ -282,6 +338,7 @@ class MenuItemFactory:
 
     jamix = JamixApi()
     mealdoo = MealdooApi()
+    sodexo = SodexoApi()
 
     def get_menu_items(
         self,
@@ -292,7 +349,7 @@ class MenuItemFactory:
         """Fetch and create menu items for given [Restaurant].
 
         Args:
-            restaurant (JamixRestaurant | MealdooRestaurant): Restaurant metadata.
+            restaurant (JamixRestaurant | MealdooRestaurant | SodexoRestaurant): Restaurant metadata.
             date (datetime): Menu date.
             lang_code (str, optional): Result language. Defaults to "en".
 
@@ -308,3 +365,7 @@ class MenuItemFactory:
             url = self.mealdoo.create_url_for_restaurant(restaurant, date)
             data = requests.get(url, timeout=5).json()
             return self.mealdoo.parse_items(data, lang_code)
+        elif type(restaurant) is SodexoRestaurant:
+            url = self.sodexo.create_url_for_restaurant(restaurant)
+            data = requests.get(url, timeout=5).json()
+            return self.sodexo.parse_items(data, date, lang_code)
