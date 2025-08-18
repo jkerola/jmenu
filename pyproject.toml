@@ -1,6 +1,6 @@
 [project]
 name = "jmenu"
-version = "1.9.0"
+version = "1.10.0"
 description = "Tool for fetching University of Oulu restaurant menus from Jamix."
 readme = "README.md"
 requires-python = ">=3.10"
