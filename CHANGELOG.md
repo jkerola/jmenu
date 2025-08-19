@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.1](https://github.com/jkerola/jmenu/compare/v1.10.0...v1.10.1) (2025-08-19)
+
+
+### Bug Fixes
+
+* fix bad parsing for new restaurants ([e50591d](https://github.com/jkerola/jmenu/commit/e50591d67087c7b1c749cb13b1b33aa74a2cfba6))
+
 ## [1.10.0](https://github.com/jkerola/jmenu/compare/v1.9.0...v1.10.0) (2025-08-18)
 
 
