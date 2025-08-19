@@ -204,15 +204,22 @@ class SodexoApi(ApiEndpoint):
 
     def parse_items(self, data: dict, date: datetime, lang_code: str = "en"):
         items = []
-        try:
-            courses = data["mealdates"][(date.weekday())]["courses"]
-            for course in courses.values():
-                diets = course["dietcodes"].replace(" ", "").split(",")
-                name = course[f"title_{lang_code}"]
-                items.append(MenuItem(name, diets))
 
-        except Exception as e:
-            print(e)
+        courses = data["mealdates"][(date.weekday())]["courses"]
+        for course in courses.values():
+            try:
+                name = course[f"title_{lang_code}"]
+                # disregard cafe puolukka
+                if "puolukka" in name.lower():
+                    continue
+                diets = course.get("dietcodes")
+                if diets:
+                    diets = diets.replace(" ", "").split(",")
+                else:
+                    diets = []
+                items.append(MenuItem(name, diets))
+            except Exception:
+                pass
         return items
 
 
